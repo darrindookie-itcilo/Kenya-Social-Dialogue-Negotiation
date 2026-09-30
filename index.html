@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="theme-color" content="#10273f">
+ <meta name="description" content="Participant dashboard for the Kenya social dialogue and negotiation skills workshop, Naivasha, 12–16 October 2026.">
+ <title>Naivasha 2026 · Social Dialogue & Negotiation</title>
+ <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+ <script src="data.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+ <a class="skip" href="#main">Skip to content</a>
+ <aside class="sidebar">
+  <a class="brand" href="#home" aria-label="Workshop home"><img src="assets/itcilo-logo.png" alt="ITCILO — International Training Centre of the ILO"></a>
+  <div class="side-title">THE NAIVASHA<br>NEGOTIATION WORKSHOP</div>
+  <nav aria-label="Main navigation">
+   <a href="#home" data-route="home"><span aria-hidden="true">⌂</span> Welcome</a>
+   <a href="#programme" data-route="programme"><span aria-hidden="true">◷</span> The week</a>
+   <a href="#opening" data-route="opening"><span aria-hidden="true">▷</span> Opening session</a>
+   <a href="#activities" data-route="activities"><span aria-hidden="true">↓</span> Activity desk</a>
+   <a href="#standards" data-route="standards"><span aria-hidden="true">§</span> Standards & law</a>
+   <a href="#lab" data-route="lab"><span aria-hidden="true">◇</span> Agreement Lab</a>
+   <a href="#notebook" data-route="notebook"><span aria-hidden="true">✎</span> My notebook</a>
+  </nav>
+  <div class="side-bottom"><span class="live-dot"></span> Naivasha, Kenya<br>12–16 October 2026<br><span>Five days. Skills to take home.</span></div>
+ </aside>
+ <div class="workspace">
+  <header class="topbar"><span>PUBLIC HEALTH <b>+</b> HIGHER EDUCATION</span><span class="chip">Participant dashboard</span></header>
+  <main id="main" tabindex="-1"></main>
+  <footer class="site-footer"><span>Social dialogue in Kenya · Negotiation skills in practice</span><span>Times: East Africa Time · UTC+3</span></footer>
+ </div>
+ <div id="toast" role="status" aria-live="polite"></div>
+ <dialog id="viewer" aria-labelledby="viewer-title"><div class="dialog-top"><h2 id="viewer-title"></h2><button data-close="viewer" aria-label="Close document">×</button></div><div id="viewer-content"></div></dialog>
+ <dialog id="presenter" aria-label="Opening session presentation"></dialog>
+ <noscript><p class="noscript">Enable JavaScript to use the dashboard. The PDF activities are available in the downloads folder.</p></noscript>
+</body>
+</html>
