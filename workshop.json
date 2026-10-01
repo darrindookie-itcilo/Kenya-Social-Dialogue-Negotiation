@@ -806,7 +806,7 @@
     {
       "title": "Ask before dividing",
       "day": 1,
-      "situation": "A staff rota dispute is presented as a demand for more reserved spaces. Both teams are ready to argue a number. You have five minutes to open the conversation.",
+      "situation": "A hospital or university site has 40 parking spaces and around 70 staff who drive to work. Staff on early and late shifts want a fixed allocation of reserved parking spaces; some have no safe alternative to driving at those hours. Management has refused a fixed, named allocation because the site layout may change next year and it wants flexibility. Both negotiating sides are preparing to argue about how many parking spaces to reserve.",
       "cards": [
         {
           "title": "Ask what matters",
@@ -826,12 +826,13 @@
           "good": false,
           "why": "A quick compromise can leave the underlying needs untouched."
         }
-      ]
+      ],
+      "task": "You have five minutes to open the negotiation. Choose two moves that help clarify what matters to each side before making an offer."
     },
     {
       "title": "Agree the measure",
       "day": 2,
-      "situation": "The teams cite two different wage-bill percentages. Each says its number proves the other side is wrong.",
+      "situation": "At a pay-negotiation meeting, management uses a wage-bill percentage to argue that a pay increase is unaffordable. Staff representatives cite a lower percentage and say there is room for an increase. The figures come from different documents. Neither team has explained which pay costs, institutions, revenue base or reporting period its calculation covers. The discussion is stuck on which number is right.",
       "cards": [
         {
           "title": "Define the denominator",
@@ -851,12 +852,13 @@
           "good": false,
           "why": "Averaging incompatible measures does not establish a valid measure."
         }
-      ]
+      ],
+      "task": "Choose two moves to establish whether the figures can be compared before using them to support a pay proposal."
     },
     {
       "title": "Find the authority",
       "day": 3,
-      "situation": "One mandate permits monthly review. The other permits quarterly review only. The negotiators currently have no authority to change those limits.",
+      "situation": "Management and staff representatives are negotiating a six-month pilot for a new staff rota. A rota is the schedule showing who works which shifts. The staff delegation's instructions require monthly reviews of the pilot; the management delegation may agree only to quarterly reviews. Neither team has authority to change its instructions. Other details are close to agreement, and there is pressure to promise a different review interval so the meeting can finish.",
       "cards": [
         {
           "title": "Clarify the limits",
@@ -876,12 +878,13 @@
           "good": false,
           "why": "A promise outside the mandate may fail at implementation."
         }
-      ]
+      ],
+      "task": "Choose two moves to handle the gap in authority and establish a route to an authorised decision."
     },
     {
       "title": "Protect a safe voice",
       "day": 4,
-      "situation": "Staff raise a biological-exposure concern in a hospital or teaching laboratory. A manager suggests dropping the reporting issue in exchange for an allowance.",
+      "situation": "At a meeting in a hospital or university teaching laboratory, staff representatives raise a concern about possible exposure to infectious biological samples. They want a clear way to report incidents and follow-up on the hazard. A manager offers an allowance for the affected work but asks staff to remove the reporting concern from the agenda. The proposal does not explain how exposure would be controlled or who would act on reports.",
       "cards": [
         {
           "title": "Protect reporting",
@@ -901,12 +904,13 @@
           "good": false,
           "why": "An allowance does not remove the hazard or the need for protection."
         }
-      ]
+      ],
+      "task": "Choose two moves to respond to the proposed exchange and address the staff's concern through the appropriate people and process."
     },
     {
       "title": "Lower the temperature",
       "day": 4,
-      "situation": "A delegate calls the other team dishonest. The conversation is becoming personal and both sides are interrupting.",
+      "situation": "A union-management meeting about a proposed change to working hours has become tense. A delegate points to differences between figures circulated before the meeting and those being used now, and calls the other team dishonest. That team says the earlier figures were preliminary. Delegates start interrupting and defending their reputations, and the discussion moves away from the proposal. The disputed information still needs attention.",
       "cards": [
         {
           "title": "Acknowledge and check",
@@ -926,12 +930,13 @@
           "good": false,
           "why": "Matching escalation makes clear listening and decisions harder."
         }
-      ]
+      ],
+      "task": "Choose two moves to respond to the accusation and help the teams return to a workable discussion."
     },
     {
       "title": "Make it implementable",
       "day": 5,
-      "situation": "The room is relieved: the teams seem to have agreement. There are ten minutes left and the funding and review dates are still vague.",
+      "situation": "After a long meeting, management and staff representatives appear to agree on additional staff training and a related allowance. Some participants understand that it will start next month; others believe it depends on budget approval. The amount, eligibility, funding source and date for reviewing the arrangement have not been recorded clearly. There are ten minutes left, and both sides are keen to announce a successful agreement.",
       "cards": [
         {
           "title": "Read back the specifics",
@@ -951,7 +956,8 @@
           "good": false,
           "why": "Goodwill alone cannot define or fund an implementable agreement."
         }
-      ]
+      ],
+      "task": "Choose two moves to establish exactly what has been agreed and what must happen before it can be implemented."
     }
   ]
 }
