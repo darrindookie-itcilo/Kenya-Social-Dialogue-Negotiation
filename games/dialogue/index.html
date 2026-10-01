@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Call It What It Is</title>
+<style>
+/* Layout concept: one scenario at a time, the four forms always in view,
+   and a single flip that turns what they called it into what it was. */
+:root{
+  --navy:#003366; --blue:#0066CC;
+  --right:#0F9B8E; --right-2:#4FBCAE; --right-1:#B7E4DD;
+  --is-bg:#0A7568; --is-fg:#FFFFFF;
+  --wrong:#B3261E; --called:#7A8896;
+  --bg:#F2F5F7; --card:#FFFFFF; --line:#DCE3E9;
+  --ink:#16202B; --ink-2:#4A5A6A; --ink-3:#7A8896;
+  --shadow:0 1px 2px rgba(16,32,48,.06), 0 6px 20px rgba(16,32,48,.07);
+  --sans:"Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --navy:#0A1A2B; --blue:#3E90E0;
+    --right:#3FC4B4; --right-2:#2A8D81; --right-1:#1D5A54;
+    --is-bg:#3FC4B4; --is-fg:#0E151C;
+    --wrong:#E5716A; --called:#7E8D9B;
+    --bg:#0E151C; --card:#17212B; --line:#2A3846;
+    --ink:#EAF0F5; --ink-2:#A9B8C6; --ink-3:#7E8D9B;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --navy:#0A1A2B; --blue:#3E90E0;
+  --right:#3FC4B4; --right-2:#2A8D81; --right-1:#1D5A54;
+  --is-bg:#3FC4B4; --is-fg:#0E151C;
+  --wrong:#E5716A; --called:#7E8D9B;
+  --bg:#0E151C; --card:#17212B; --line:#2A3846;
+  --ink:#EAF0F5; --ink-2:#A9B8C6; --ink-3:#7E8D9B;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.55; -webkit-text-size-adjust:100%}
+.wrap{max-width:900px; margin:0 auto; padding-inline:16px; padding-block:0 40px}
+header.top{background:linear-gradient(100deg, var(--navy), var(--blue)); color:#fff; padding-block:12px; margin-bottom:18px}
+header.top .wrap{padding-block:0; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+.brand{font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:13px; line-height:1.3}
+.brand small{display:block; font-weight:400; letter-spacing:.04em; text-transform:none; font-size:11.5px; opacity:.85}
+.hud{margin-left:auto; display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+.hud .stat{font-family:var(--mono); font-size:12.5px; opacity:.95; white-space:nowrap}
+.hud .stat b{font-size:16px}
+button.restart{font:inherit; font-size:12.5px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35); color:#fff; border-radius:7px; padding:6px 11px; cursor:pointer}
+button.restart:hover{background:rgba(255,255,255,.24)}
+
+.cols{display:grid; grid-template-columns:1fr 262px; gap:14px; align-items:start}
+@media (max-width:780px){ .cols{grid-template-columns:1fr} }
+.card{background:var(--card); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow); padding:20px; margin-bottom:14px}
+h1{font-size:26px; line-height:1.2; margin:0 0 10px; text-wrap:balance; letter-spacing:-.01em}
+h2{font-size:19px; margin:0 0 8px; text-wrap:balance}
+p{margin:0 0 12px; color:var(--ink-2); max-width:62ch}
+p.lead{color:var(--ink); font-size:17px}
+.eyebrow{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); font-weight:700; margin-bottom:6px}
+.scenario{font-size:18.5px; line-height:1.5; color:var(--ink); border-left:3px solid var(--blue); padding-left:15px; margin:12px 0 18px; max-width:60ch}
+.note{font-size:13.5px; color:var(--ink-3)}
+hr{border:0; border-top:1px solid var(--line); margin:18px 0}
+
+.chip{display:inline-flex; align-items:center; gap:9px; border-radius:999px; padding:8px 15px; font-size:14px; font-weight:650}
+.chip.called{background:color-mix(in srgb, var(--called) 15%, transparent); color:var(--ink-2)}
+.chip.is{background:var(--is-bg); color:var(--is-fg)}
+.chip.is .k{opacity:.75}
+.chip .k{font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; opacity:.8}
+@media (prefers-reduced-motion:no-preference){ .chip.is{animation:flip .45s ease-out} }
+@keyframes flip{ from{transform:rotateX(90deg); opacity:0} to{transform:none; opacity:1} }
+
+.opts{display:flex; flex-direction:column; gap:8px; margin-top:8px}
+.opts.row{flex-direction:row; flex-wrap:wrap}
+.opts.row button{flex:1 1 130px}
+button.opt{text-align:left; width:100%; font:inherit; color:var(--ink); background:var(--card);
+  border:1.5px solid var(--line); border-radius:8px; padding:11px 14px; cursor:pointer; transition:border-color .12s, background .12s}
+button.opt:hover{border-color:var(--blue)}
+button.opt[aria-pressed="true"]{border-color:var(--blue); background:color-mix(in srgb, var(--blue) 9%, var(--card))}
+input.q3{width:100%; font:inherit; font-size:15.5px; padding:12px; border:1.5px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink); margin-top:8px}
+input.q3:focus{outline:2px solid var(--blue); outline-offset:1px}
+
+.actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:20px}
+button.go{font:inherit; font-weight:700; letter-spacing:.04em; border:0; border-radius:8px; background:var(--blue); color:#fff; padding:13px 22px; cursor:pointer}
+button.go:disabled{background:var(--line); color:var(--ink-3); cursor:not-allowed}
+button.ghost{font:inherit; background:transparent; border:1.5px solid var(--line); color:var(--ink-2); border-radius:8px; padding:9px 14px; cursor:pointer}
+button.ghost.warn{border-color:var(--wrong); color:var(--wrong)}
+
+/* forms panel */
+.forms{position:sticky; top:16px}
+.forms .row{display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center; padding:9px 0; border-bottom:1px solid var(--line)}
+.forms .row:last-of-type{border-bottom:0}
+.forms .rn{font-size:13.5px; line-height:1.3; color:var(--ink-2)}
+.depth{display:flex; justify-content:space-between; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:700; margin:2px 0 6px}
+.boxes{display:flex; gap:3px}
+.boxes i{width:13px; height:13px; border-radius:3px; background:var(--line); display:block}
+.boxes i.ok{background:var(--right)}
+.boxes i.no{background:var(--wrong)}
+.pill{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:4px 10px; border-radius:999px; background:color-mix(in srgb, var(--blue) 12%, transparent); color:var(--blue)}
+.pill.arg{background:color-mix(in srgb, #C1502E 16%, transparent); color:#C1502E}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .pill.arg{color:#E8845F} }
+:root[data-theme="dark"] .pill.arg{color:#E8845F}
+.deltas{font-family:var(--mono); font-size:14px; line-height:1.9; margin:12px 0}
+.deltas .plus{color:var(--right); font-weight:700}
+.deltas .zero{color:var(--wrong); font-weight:700}
+.code{font-family:var(--mono); font-size:40px; font-weight:700; letter-spacing:.16em; color:var(--navy); background:var(--bg); border:1px dashed var(--line); border-radius:8px; padding:14px 8px; text-align:center; margin:8px 0}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .code{color:var(--blue)} }
+:root[data-theme="dark"] .code{color:var(--blue)}
+.bignum{font-family:var(--mono); font-size:44px; font-weight:700; color:var(--right); margin:4px 0 0; line-height:1.1}
+.raceline{display:flex; gap:26px; flex-wrap:wrap; font-family:var(--mono); font-size:14px; color:var(--ink-2); margin:10px 0 0}
+.raceline b{color:var(--ink); font-size:20px}
+table.miss{width:100%; border-collapse:collapse; font-size:14.5px; margin-top:8px}
+table.miss td{padding:9px 8px 9px 0; border-bottom:1px solid var(--line); vertical-align:top}
+table.miss td:first-child{color:var(--ink-3); font-family:var(--mono); width:44px}
+table.miss tr:last-child td{border-bottom:0}
+details.how{margin-top:10px}
+details.how summary{cursor:pointer; font-weight:650; color:var(--blue)}
+details.how dl{margin:12px 0 0}
+details.how dt{font-weight:650; margin-top:10px}
+details.how dd{margin:2px 0 0; color:var(--ink-2); font-size:14.5px}
+.banner{background:color-mix(in srgb, var(--wrong) 12%, var(--card)); border:1.5px solid var(--wrong); color:var(--ink); border-radius:10px; padding:14px 18px; margin-bottom:14px; font-weight:650}
+.foot{font-size:12px; color:var(--ink-3); text-align:center; padding:22px 16px 8px; max-width:62ch; margin:0 auto}
+.foot a{color:var(--ink-3)}
+:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+.live-status{padding:10px 4px;font-size:14px;color:var(--ink-2)}.game-home{font-size:14px;color:inherit}.top .brand{line-height:1.3}.game-logo{display:block;padding:7px;background:white;border-radius:6px}.game-logo img{width:85px;display:block;height:auto}@media(max-width:500px){.game-logo img{width:65px}.brand{font-size:12px}.hud{margin-left:0;width:100%;gap:10px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="game-logo" href="../../#games"><img src="../../assets/itcilo-logo.png" alt="ITCILO"></a><div class="brand">Call It What It Is<small>ITCILO · Negotiation Skills Workshop, Kenya</small></div>
+    <div class="hud" id="hud"></div>
+  </div>
+</header>
+<div class="wrap"><div id="liveStatus" class="note live-status" role="status"></div><div id="app"></div></div>
+<p class="foot">Training material. All twelve scenarios are composite and fictional.<br><a href="../../#games">Workshop dashboard</a> · <a href="https://platform-grievance-india.darrin-dookie.chatgpt.site/games/facilitator" target="_blank" rel="noopener">Secure facilitator view</a></p>
+
+<script src="../../race.js?v=3"></script>
+<script src="live.js?v=3"></script>
+<script>
+"use strict";
+/* ======================================================================
+   CALL IT WHAT IT IS — ITC-ILO Kenya workshop, Day 1 Session 3
+   A race on accuracy: name the form and the setting for twelve scenarios,
+   correctly, in the shortest total time.
+   ==================================================================== */
+
+var FORMS = ["Information-sharing","Consultation","Negotiation","Partnership","Not social dialogue"];
+var SETTINGS = ["Bipartite","Tripartite","Neither"];
+
+/* Families of change that actually move a process to a deeper form. */
+var FAMILIES = [
+ {k:"BEFORE",   label:"acting before the decision is taken", words:["before the decision","before a decision","before they decide","in advance","ahead of","prior","early","draft stage","notice","consult first","beforehand","at the drafting"]},
+ {k:"RESPONSE", label:"requiring a reasoned response", words:["written response","reasons","feedback","respond","report back","explain","say which","publish the comment","answer","justify","minutes","account for"]},
+ {k:"BODY",     label:"establishing a standing joint body", words:["joint committee","standing","terms of reference","equal number","independent chair","agreed agenda","joint body","working group","constitute","joint structure"]},
+ {k:"MANDATE",  label:"giving it binding force", words:["mandate","authority","binding","agreement","sign","signed","registered","commit","commitment","undertaking","enforceable","collective agreement"]},
+ {k:"PARTIES",  label:"bringing the representative organizations in as parties", words:["union","representative","recognised","recognized","workers' organization","workers organisation","workers’ organization","elected","employers' organization","federation","shop steward","branch","social partners"]}
+];
+
+var CARDS = [
+ { sector:"Public health", called:"consultation", form:0, setting:2,
+   text:"The county health management team circulates the new shift roster by email on Friday afternoon, effective Monday, and invites staff to raise any concerns with their supervisor.",
+   why:"Views were invited after the decision was taken in the scenario after the roster had already been decided, without any commitment to reconsider it. And a supervisor is line management, not a workers’ representative — the scenario shows administrative information-sharing, without a representative social-dialogue setting." },
+
+ { sector:"Higher education", called:"an information session", form:1, setting:0,
+   text:"The university council sends the draft workload policy to the academic staff union, receives written comments over three weeks, and publishes a revised draft showing which comments were accepted and which were not, with reasons, before the council adopts it.",
+   why:"Views were genuinely exchanged and genuinely considered before the decision, and reasons were given. That is consultation in this scenario: views were considered before adoption and a reasoned response was given." },
+
+ { sector:"Public health", called:"a facilitated meeting", form:2, setting:1, arguable:true, altSetting:0,
+   text:"Talks on the new allowance structure have been deadlocked for three months. At the joint request of the county and the health workers’ union, the Ministry of Labour assigns a conciliator, who convenes four further sessions. The parties reach and sign an agreement, and the conciliator signs the record as a witness.",
+   why:"The parties exchanged proposals and reached a binding agreement, so the form is negotiation. The setting is where a room usually splits: the Ministry provided the conciliator and the venue but settled nothing itself and undertook nothing. Both readings are defensible — the useful question is what the Ministry would have had to do to make this genuinely tripartite." },
+
+ { sector:"Higher education", called:"a committee", form:3, setting:0,
+   text:"A joint committee of the university and the union meets monthly under agreed terms of reference, sets its own agenda, decides the allocation of the staff development fund by consensus, and reports jointly to the council.",
+   why:"Ongoing, structured, jointly agenda-setting, and actually deciding something together. That is the deepest form there is — and they called it “a committee”." },
+
+ { sector:"National", called:"tripartite consultation", form:0, setting:1,
+   text:"The Ministry circulates a draft policy to the central trade union organization and the central employers’ organization with a ten-day window for comment. Comments are submitted. The policy is published unchanged, and no response is given to either organization. The meeting record confirms that the comments were not considered.",
+   why:"The setting was right — the right parties at the right table. The form was not. If no view can be shown to have been considered and no reasons are ever given, this is notification with a comment box attached. A correct setting does not make it consultation." },
+
+ { sector:"Cross-sector", called:"a tripartite board", form:1, setting:1,
+   text:"A Sector Skills Advisory Committee is chaired by the government department. The employers’ federation and the sector unions each nominate members. It meets quarterly, and its recommendations go to the Cabinet Secretary, who considers them and is not bound by them.",
+   why:"The label is right about the setting and misleading about the depth. Recommendations the decision-maker is free to set aside are consultation, not joint decision-making — which is perfectly legitimate, as long as nobody in the room believes they are negotiating." },
+
+ { sector:"Public health", called:"consultation with staff", form:4, setting:2,
+   text:"Two ward managers agree between themselves, over tea, to swap two staff members for a month to cover a shortage. Both staff members are told afterwards and neither objects.",
+   why:"Two managers agreeing something is management. No workers’ or employers’ organization is involved, and the staff concerned were informed after the fact. It may well have been sensible and humane. It was not social dialogue, and calling it that devalues the term." },
+
+ { sector:"Public health", called:"a courtesy", form:0, setting:0,
+   text:"Six weeks before the wage talks open, the county provides the union with the full payroll breakdown, the wage-bill ratio and the approved establishment, on request, under a confidentiality undertaking.",
+   why:"This is information-sharing, the lightest form — and it is excellent practice. A union that has the payroll data six weeks out can prepare properly. Depth is not the same as quality: good information-sharing beats bad negotiation every time." },
+
+ { sector:"Higher education", called:"consultation", form:2, setting:0,
+   text:"Management and the union meet across eight sessions over two months, exchange written proposals and counter-proposals, and sign a collective agreement on promotion criteria, which is then registered. The minutes of every session are headed “consultative meeting”.",
+   why:"Proposals, counter-proposals, a signed and registered collective agreement. The label on the minutes is simply wrong — and labels on minutes matter later, when one side wants to argue about what those meetings were." },
+
+ { sector:"National", called:"an advisory board", form:3, setting:1, arguable:true, altForm:2,
+   text:"At the national labour advisory body, government, the central employers’ organization and the central trade union organization work through a draft bill clause by clause and reach an agreed text. The Minister has undertaken in advance to table whatever the three parties agree.",
+   why:"The prior undertaking supports a partnership reading; an equally defensible reading is negotiation of an agreed text. Parliament still decides whether to enact the bill. A good argument says negotiation instead, and the distinction is whether this is a one-off bargain or a standing relationship of joint decision. Both readings score." },
+
+ { sector:"Public health", called:"consultation", form:0, setting:2,
+   text:"The hospital board announces the new grading structure at a staff durbar, takes questions from the floor for twenty minutes, and thanks everyone for their valuable input.",
+   why:"Questions from the floor after an announcement are not an exchange of views before a decision, and a durbar is not a representative structure. The scenario describes an information-sharing activity, without evidence of a representative social-dialogue setting. The staff meeting itself does not establish worker representation." },
+
+ { sector:"Public health", called:"a working group", form:3, setting:0,
+   text:"After a difficult round of talks on job grading, the county and the union establish a joint technical working group: equal numbers from each side, an independent chair agreed by both, a mandate to produce a costed proposal, and a commitment given in advance by both sides to take whatever it produces to their principals. It continues to meet quarterly and makes joint decisions on implementation within an agreed mandate.",
+   why:"Equal numbers, an agreed chair, a joint mandate and a prior commitment to carry the output. Note the contrast with the staff development committee earlier: partnership is a structure, not a mood." }
+];
+
+var PTS_FORM = 10, PTS_SETTING = 5, PTS_MOVE = 5;
+var MAX_SCORE = CARDS.length * (PTS_FORM + PTS_SETTING + PTS_MOVE);   /* 240 */
+
+/* ---------------- state ---------------- */
+var KEY = "naivasha-dialogue-v5";
+var S = null;
+var stopControl = null;
+var hudTimer = null;
+
+function defaultRoom(){
+  try{
+    var q = new URLSearchParams(location.search).get("room");
+    if(q) return q.toUpperCase().replace(/[^A-Z0-9]/g,"");
+    var h = (location.hash || "").replace("#","").toUpperCase().replace(/[^A-Z0-9]/g,"");
+    if(h) return h;
+  }catch(e){}
+  return "";
+}
+function fresh(){
+  return { screen:"landing", team:"", sector:"health", play:"team", room:defaultRoom(),
+           i:0, score:0, form:null, setting:null, q3:"", answers:[],
+           startedAt:0, finishedAt:0, generation:0, resetNotice:false };
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function load(){ try{ var r = localStorage.getItem(KEY); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
+
+function restart(keepIdentity){
+  if(window.LIVE&&LIVE.isLive()){alert("Your facilitator can restart this team from the secure race board.");return;}
+  var keep = keepIdentity ? { team:S.team, sector:S.sector, play:S.play, room:S.room, generation:S.generation } : {};
+  try{ localStorage.removeItem(KEY); }catch(e){}
+  try{ if(window.LIVE) LIVE.withdraw(); }catch(e){}
+  S = fresh();
+  if(keepIdentity){ S.team = keep.team; S.sector = keep.sector; S.play = keep.play; S.room = keep.room; S.generation = keep.generation; }
+  save(); render();
+}
+
+/* ---------------- scoring ---------------- */
+function formOK(c, pick){
+  if(pick === c.form) return true;
+  if(c.arguable && typeof c.altForm === "number" && pick === c.altForm) return true;
+  return false;
+}
+function settingOK(c, pick){
+  if(pick === c.setting) return true;
+  if(c.arguable && typeof c.altSetting === "number" && pick === c.altSetting) return true;
+  return false;
+}
+function familyHit(text){
+  var low = String(text || "").toLowerCase();
+  if(low.length < 4) return null;
+  for(var i=0;i<FAMILIES.length;i++){
+    for(var j=0;j<FAMILIES[i].words.length;j++){
+      if(low.indexOf(FAMILIES[i].words[j]) !== -1) return FAMILIES[i];
+    }
+  }
+  return null;
+}
+function elapsedMs(){
+  if(window.LIVE&&LIVE.isLive())return LIVE.connection().elapsed();
+  if(!S.startedAt) return 0;
+  return (S.finishedAt || Date.now()) - S.startedAt;
+}
+function clock(ms){
+  var s = Math.max(0, Math.floor(ms/1000));
+  return Math.floor(s/60) + ":" + ("0" + (s%60)).slice(-2);
+}
+function correctCount(){
+  return S.answers.filter(function(a){ return a && a.formOK; }).length;
+}
+/* Six characters: score, time in 5-second units, checksum, game flag. */
+function encode(score, ms){
+  var b36 = function(v){ return v.toString(36).toUpperCase(); };
+  var n = Math.max(0, Math.min(1295, Math.round(score)));
+  var t = Math.max(0, Math.min(1295, Math.round(ms/5000)));
+  var chk = (n*7 + t*11 + 13) % 36;
+  return b36(Math.floor(n/36)) + b36(n%36) + b36(Math.floor(t/36)) + b36(t%36) + b36(chk) + "D";
+}
+
+/* ---------------- live ---------------- */
+function publish(){
+  if(!window.LIVE || !S.team) return;
+  LIVE.publish({
+    state:S, game:"dialogue", name:S.team, sector:S.sector, play:S.play,
+    step: S.screen === "final" ? CARDS.length : Math.min(S.i + 1, CARDS.length),
+    steps: CARDS.length,
+    done: S.screen === "final",
+    correct: correctCount(),
+    wrong: S.answers.filter(function(a){ return a && !a.formOK; }).length,
+    answered: S.answers.filter(Boolean).length,
+    score: S.score, max: MAX_SCORE,
+    startedAt: S.startedAt, finishedAt: S.finishedAt || 0
+  });
+}
+function startControlWatch(){
+  if(!window.LIVE || stopControl) return;
+  stopControl=LIVE.watchControl(function(gen,team){
+    var old={team:S.team,sector:S.sector,play:S.play,room:S.room};
+    S=Object.assign(fresh(),team.state||{},old,{generation:gen,startedAt:team.startedAt,finishedAt:team.finishedAt,resetNotice:true});
+    if(!Object.keys(team.state||{}).length)S.screen="card";
+    save();render();
+  });
+}
+function liveStatus(){
+  var c=LIVE.connection(),el=document.getElementById("liveStatus");
+  if(el)el.textContent=c.active()?c.label()+" · SESSION "+c.connection.room:"Practice · progress saved on this device";
+}
+function applyTeam(team,force){
+  var identity={team:team.name,sector:team.sector,play:S.play,room:team.room};
+  var c=LIVE.connection();
+  if(force||S.generation!==team.generation||!c.pending)S=Object.assign(fresh(),team.state||{},identity);
+  else Object.assign(S,identity);
+  S.generation=team.generation;S.startedAt=team.startedAt;S.finishedAt=team.finishedAt;
+  if(!Object.keys(team.state||{}).length)S.screen="card";
+  save();
+}
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+  return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]; }); }
+function we(){ return S.play === "solo" ? "you" : "your team"; }
+function We(){ return S.play === "solo" ? "You" : "Your team"; }
+
+function formsPanel(){
+  var order = [3,2,1,0,4];
+  var h = '<div class="card forms"><div class="eyebrow">Forms of social dialogue</div>' +
+          '<div class="depth"><span>Deepest</span><span>Lightest</span></div>';
+  order.forEach(function(f){
+    var idx = [];
+    CARDS.forEach(function(c,i){ if(c.form === f) idx.push(i); });
+    var boxes = idx.map(function(i){
+      var a = S.answers[i];
+      return '<i class="' + (a ? (a.formOK ? "ok" : "no") : "") + '"></i>';
+    }).join("");
+    h += '<div class="row"><span class="rn">' + FORMS[f] + '</span><span class="boxes">' + boxes + '</span></div>';
+  });
+  return h + '<p class="note" style="margin:10px 0 0">One box per card. Teal where ' + we() + ' named the form correctly.</p></div>';
+}
+
+function hud(){
+  var el = document.getElementById("hud");
+  if(!el) return;
+  if(!S.team || S.screen === "landing" || S.screen === "setup"){ el.innerHTML = ""; return; }
+  el.innerHTML =
+    '<span class="stat">' + esc(S.team) + '</span>' +
+    '<span class="stat">Correct <b>' + correctCount() + '</b>/' + CARDS.length + '</span>' +
+    '<span class="stat">Time <b id="hudClock">' + clock(elapsedMs()) + '</b></span>' +
+    '<button class="restart" id="restartBtn">Restart</button>' + (LIVE.isLive()?'<button class="restart" id="leaveRaceBtn">Leave race</button>':'') + '';
+  var leave=document.getElementById("leaveRaceBtn");if(leave)leave.onclick=function(){if(!confirm("Leave the live table? Your result stays on the facilitator board. You can rejoin with the same code."))return;var identity={team:S.team,sector:S.sector,play:S.play};LIVE.connection().stop();S=Object.assign(fresh(),identity,{room:"",screen:"setup"});save();render();};
+  var b = document.getElementById("restartBtn");
+  var armed = false;
+  b.onclick = function(){
+    if(!armed){ armed = true; b.textContent = "Tap again to restart"; setTimeout(function(){ armed = false; b.textContent = "Restart"; }, 4000); return; }
+    restart(true);
+  };
+}
+function startHudClock(){
+  clearInterval(hudTimer);
+  hudTimer = setInterval(function(){
+    var c = document.getElementById("hudClock");
+    if(c) c.textContent = clock(elapsedMs());
+  }, 1000);
+}
+
+/* ---------------- screens ---------------- */
+function render(){
+  document.getElementById("app").innerHTML = ({
+    landing: viewLanding, setup: viewSetup, card: viewCard, reveal: viewReveal, final: viewFinal
+  })[S.screen]();
+  hud(); wire(); publish(); liveStatus(); startHudClock();
+  window.scrollTo(0,0);
+}
+
+function viewLanding(){
+  return (S.resetNotice ? '<div class="banner">The facilitator has restarted the game. Press Start when you are ready.</div>' : '') +
+    '<div class="card">' +
+    '<h1>Twelve things that happened. Twelve things they were called.</h1>' +
+    '<p class="lead">Identify the activity or form, the representative setting, and one useful change. An information-sharing activity can have no representative social-dialogue setting; classify these two dimensions separately.</p>' +
+    '<p class="lead"><b>It is a race on accuracy.</b> There is no per-question clock and nothing cuts you off. The winner is whoever gets the most right — and, among those, whoever finishes in the shortest total time.</p>' +
+    '<details class="how"><summary>The activities, forms and settings</summary>' +
+      '<dl>' +
+      '<dt>Information-sharing</dt><dd>One party provides information. No obligation on anyone to respond.</dd>' +
+      '<dt>Consultation</dt><dd>Views are genuinely exchanged and genuinely considered before the decision is taken.</dd>' +
+      '<dt>Negotiation</dt><dd>The parties seek a mutually acceptable, normally binding agreement.</dd>' +
+      '<dt>Partnership</dt><dd>An ongoing, structured relationship of joint decision-making.</dd>' +
+      '<dt>Not social dialogue</dt><dd>A purely managerial decision without an exchange with workers or their representatives.</dd>' +
+      '</dl>' +
+      '<p style="margin-top:14px">This game uses four teaching categories. The ILO definition covers information exchange, consultation and negotiation; partnership is used here for structured joint decision-making. A deeper form is not automatically better. <a href="https://www.ilo.org/topics-and-sectors/social-dialogue-and-tripartism" target="_blank" rel="noopener">Read the ILO definition.</a> <b>Bipartite</b> — employers or their organizations and workers’ organizations. <b>Tripartite</b> — those two plus government as a party. <b>Neither</b> — no representative organization is involved.</p>' +
+      '<p><b>Scoring.</b> ' + PTS_FORM + ' for the form, ' + PTS_SETTING + ' for the setting, ' + PTS_MOVE + ' for a suggested change matching the game’s keyword families (a discussion prompt, not a quality assessment). ' + MAX_SCORE + ' in all. Two cards are deliberately arguable and score for either defensible answer.</p>' +
+    '</details>' +
+    '<div class="actions"><button class="go" id="toSetup">Start</button></div>' +
+  '</div>';
+}
+
+function viewSetup(){
+  return '<div class="card">' +
+    '<div class="eyebrow">Before you begin</div>' +
+    '<h2>Who is playing?</h2>' +
+    '<p>No names, no emails. Just a label the facilitator can read off the screen.</p>' +
+    '<div class="opts row" style="margin-bottom:18px">' +
+      '<button class="opt" type="button" data-pick="play" data-v="team" aria-pressed="' + (S.play==="team") + '"><b>As a team</b><br><span class="note">Around a table, one device</span></button>' +
+      '<button class="opt" type="button" data-pick="play" data-v="solo" aria-pressed="' + (S.play==="solo") + '"><b>On my own</b><br><span class="note">One person, one device</span></button>' +
+    '</div>' +
+    '<label for="teamName" class="eyebrow">' + (S.play==="solo" ? "Your name or nickname" : "Team name") + '</label>' +
+    '<input id="teamName" class="q3" maxlength="24" placeholder="' + (S.play==="solo" ? "e.g. Amina" : "e.g. Table 3") + '" value="' + esc(S.team) + '" style="font-size:17px;margin-bottom:18px">' +
+    '<div class="eyebrow">Your sector</div>' +
+    '<div class="opts row" style="margin-top:8px;margin-bottom:18px">' +
+      '<button class="opt" type="button" data-pick="sector" data-v="health" aria-pressed="' + (S.sector==="health") + '">Public health</button>' +
+      '<button class="opt" type="button" data-pick="sector" data-v="he" aria-pressed="' + (S.sector==="he") + '">Higher education</button>' +
+    '</div>' +
+    '<label for="roomCode" class="eyebrow">Session code</label>' +
+    '<input id="roomCode" class="q3" maxlength="8" placeholder="Optional for practice" value="' + esc(S.room) + '" style="font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;max-width:240px">' +
+    '<p class="note" style="margin-top:6px">Enter the eight-character code from your facilitator for a live race. Leave blank to practise on this device.</p>' +
+    '<div class="actions"><button class="go" id="begin">Deal the first card</button></div>' +
+  '</div>';
+}
+
+function viewCard(){
+  var c = CARDS[S.i];
+  var formBtns = FORMS.map(function(f,i){
+    return '<button class="opt" type="button" data-pick="form" data-v="' + i + '" aria-pressed="' + (S.form===i) + '">' + f + '</button>';
+  }).join("");
+  var setBtns = SETTINGS.map(function(f,i){
+    return '<button class="opt" type="button" data-pick="setting" data-v="' + i + '" aria-pressed="' + (S.setting===i) + '">' + f + '</button>';
+  }).join("");
+  return '<div class="cols"><div>' +
+    (S.resetNotice ? '<div class="banner">The facilitator has restarted the game. Everyone begins again from card one.</div>' : '') +
+    '<div class="card">' +
+      '<span class="pill">Card ' + (S.i+1) + ' of ' + CARDS.length + '</span> ' +
+      '<span class="note" style="margin-left:6px">' + c.sector + '</span>' +
+      '<div class="scenario">' + c.text + '</div>' +
+      '<span class="chip called"><span class="k">They called it</span> ' + c.called + '</span>' +
+      '<hr>' +
+      '<div class="eyebrow">1 · What activity / form was it, really?</div><div class="opts">' + formBtns + '</div>' +
+      '<div class="eyebrow" style="margin-top:18px">2 · What setting?</div><div class="opts row">' + setBtns + '</div>' +
+      '<div class="eyebrow" style="margin-top:18px">3 · What one change would move this to a deeper form of social dialogue?</div>' +
+      '<input class="q3" id="q3" maxlength="140" placeholder="Optional — one line" value="' + esc(S.q3) + '">' +
+      '<div class="actions"><button class="go" id="lock" ' + (S.form===null||S.setting===null ? "disabled" : "") + '>Lock it in</button></div>' +
+    '</div>' +
+  '</div>' + formsPanel() + '</div>';
+}
+
+function viewReveal(){
+  var a = S.answers[S.i];
+  var c = CARDS[S.i];
+  var fam = a.family;
+  return '<div class="cols"><div>' +
+    '<div class="card">' +
+      (c.arguable ? '<span class="pill arg">The room is split — and it should be</span>' : '<span class="pill">Card ' + (S.i+1) + '</span>') +
+      '<div class="scenario" style="font-size:16px;color:var(--ink-2)">' + c.text + '</div>' +
+      '<div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">' +
+        '<span class="chip called"><span class="k">They called it</span> ' + c.called + '</span>' +
+        '<span class="chip is"><span class="k">It was</span> ' + FORMS[c.form] + ' · ' + SETTINGS[c.setting] + '</span>' +
+      '</div>' +
+      '<p style="margin-top:16px">' + c.why + '</p>' +
+      '<hr>' +
+      '<div class="deltas">' +
+        '<span class="' + (a.formOK ? "plus" : "zero") + '">' + (a.formOK ? "+" + PTS_FORM : "  0") + '</span> form — you said ' + FORMS[a.form] + '<br>' +
+        '<span class="' + (a.setOK ? "plus" : "zero") + '">' + (a.setOK ? " +" + PTS_SETTING : "  0") + '</span> setting — you said ' + SETTINGS[a.setting] + '<br>' +
+        '<span class="' + (fam ? "plus" : "zero") + '">' + (fam ? " +" + PTS_MOVE : "  0") + '</span> your change — ' +
+          (fam ? "about " + fam.label + ", which earns the game’s automatic keyword bonus; discuss whether your proposed change is workable"
+               : (a.q3 ? "no bonus keyword was detected; a facilitator can still consider your idea on its merits" : "not answered")) + '<br>' +
+        '<b>' + a.points + ' this card · ' + S.score + ' of ' + MAX_SCORE + ' · ' + correctCount() + ' of ' + CARDS.length + ' forms right</b>' +
+      '</div>' +
+      (!fam && a.q3 ? '<p class="note">Look at three things: when it happens relative to the decision, who is party to it, and whether anybody is obliged to respond.</p>' : '') +
+      '<div class="actions"><button class="go" id="next">' + (S.i === CARDS.length-1 ? "Finish" : "Next card") + '</button></div>' +
+    '</div>' +
+  '</div>' + formsPanel() + '</div>';
+}
+
+function viewFinal(){
+  var wrong = [];
+  S.answers.forEach(function(a,i){ if(a && (!a.formOK || !a.setOK)) wrong.push({i:i, a:a, c:CARDS[i]}); });
+  var over = S.answers.filter(function(a,i){
+    return a && !a.formOK && a.form > CARDS[i].form && CARDS[i].form !== 4;
+  }).length;
+  var ms = elapsedMs();
+  return '<div class="cols"><div>' +
+    '<div class="card">' +
+      '<div class="eyebrow">' + esc(S.team) + ' · ' + (S.sector==="health" ? "Public health" : "Higher education") + (S.play==="solo" ? " · solo" : "") + '</div>' +
+      '<p class="bignum">' + S.score + ' <span style="font-size:20px;color:var(--ink-3)">of ' + MAX_SCORE + '</span></p>' +
+      '<div class="raceline"><span>Forms right <b>' + correctCount() + '</b> of ' + CARDS.length + '</span><span>Total time <b>' + clock(ms) + '</b></span></div>' +
+      '<p class="note" style="margin-top:14px">' +
+        (over > 0
+          ? We() + " called the dialogue <b>deeper than it was</b> on " + over + " of the twelve. That is the usual direction of travel, and it is the one that costs people at the table."
+          : We() + " did not once call the dialogue deeper than it was. That is unusual, and worth saying out loud in the room.") +
+      '</p>' +
+    '</div>' +
+    '<div class="card">' +
+      '<div class="eyebrow">Your result code for the debrief</div>' +
+      '<div class="code">' + encode(S.score, ms) + '</div>' +
+      '<p class="note">It records your score and time for a spoken debrief if the connection is unavailable. It does not submit a live result.</p>' +
+    '</div>' +
+    (wrong.length ? '<div class="card"><div class="eyebrow">Worth looking at again</div><table class="miss">' +
+      wrong.map(function(w){
+        return '<tr><td>' + (w.i+1) + '</td><td><b>' + FORMS[w.c.form] + ' · ' + SETTINGS[w.c.setting] + '</b><br>' +
+               '<span class="note">You said ' + FORMS[w.a.form] + ' · ' + SETTINGS[w.a.setting] + '. It came with the label “' + esc(w.c.called) + '”.</span></td></tr>';
+      }).join("") + '</table></div>' : '') +
+    '<div class="card">' +
+      '<div class="eyebrow">Three questions for the room</div>' +
+      '<p class="note">1 · Which card did you argue about longest — and was it one of the two marked arguable, or one you thought was obvious?<br>' +
+      '2 · Look at the panel beside you. Which form has the red boxes? Most rooms over-call the depth: they see consultation where there was only information-sharing.<br>' +
+      '3 · Card 8 was information-sharing done well and card 5 was tripartite consultation done badly. What does that pair say about judging a process by its label?</p>' +
+      '<div class="actions"><button class="ghost warn" id="playAgain">Play again</button></div>' +
+    '</div>' +
+  '</div>' + formsPanel() + '</div>';
+}
+
+/* ---------------- interaction ---------------- */
+function wire(){
+  var app = document.getElementById("app");
+  app.querySelectorAll("[data-pick]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var k = b.getAttribute("data-pick"), v = b.getAttribute("data-v");
+      if(k === "sector" || k === "play"){ S[k] = v; }
+      else { S[k] = Number(v); }
+      var q = document.getElementById("q3"); if(q) S.q3 = q.value;
+      var r = document.getElementById("roomCode"); if(r) S.room = r.value.toUpperCase().replace(/[^A-Z0-9]/g,"");
+      var n = document.getElementById("teamName"); if(n) S.team = n.value;
+      save(); render();
+    });
+  });
+  var g = function(id){ return document.getElementById(id); };
+
+  if(g("toSetup")) g("toSetup").onclick = function(){ S.screen = "setup"; save(); render(); };
+
+  if(g("begin")) g("begin").onclick = async function(){
+    var n = g("teamName").value.trim();
+    if(!n){ g("teamName").focus(); g("teamName").style.borderColor = "var(--wrong)"; return; }
+    S.team = n;
+    S.room = g("roomCode").value.trim().toUpperCase();
+    if(S.room){
+      g("begin").disabled=true;
+      LIVE.setRoom("dialogue",S.room);
+      try{var team=await LIVE.join(S.team,S.sector);applyTeam(team,true);startControlWatch();save();render();return;}
+      catch(e){g("begin").disabled=false;document.getElementById("liveStatus").textContent=e.message;document.getElementById("liveStatus").setAttribute("role","alert");return;}
+    } else LIVE.connection().stop();
+    
+    S.screen = "card"; S.i = 0; S.form = null; S.setting = null; S.q3 = "";
+    S.answers = []; S.score = 0; S.startedAt = Date.now(); S.finishedAt = 0; S.resetNotice = false;
+    save(); render();
+  };
+
+  if(g("q3")) g("q3").addEventListener("input", function(){ S.q3 = g("q3").value; save(); });
+  if(g("lock")) g("lock").onclick = lockIn;
+  if(g("next")) g("next").onclick = function(){
+    S.resetNotice = false;
+    if(S.i === CARDS.length - 1){ S.finishedAt = Date.now(); S.screen = "final"; save(); render(); return; }
+    S.i += 1; S.form = null; S.setting = null; S.q3 = ""; S.screen = "card";
+    save(); render();
+  };
+  if(g("playAgain")){
+    var pa = g("playAgain"), armed = false;
+    pa.onclick = function(){
+      if(!armed){ armed = true; pa.textContent = "Tap again — this clears your score"; setTimeout(function(){ armed=false; pa.textContent="Play again"; }, 4000); return; }
+      restart(true);
+    };
+  }
+}
+
+function lockIn(){
+  if(S.form === null || S.setting === null) return;
+  var el = document.getElementById("q3");
+  if(el) S.q3 = el.value;
+  var c = CARDS[S.i];
+  var fOK = formOK(c, S.form), sOK = settingOK(c, S.setting);
+  var fam = familyHit(S.q3);
+  var pts = (fOK?PTS_FORM:0) + (sOK?PTS_SETTING:0) + (fam?PTS_MOVE:0);
+  S.score += pts;
+  S.answers[S.i] = { form:S.form, setting:S.setting, q3:S.q3, formOK:fOK, setOK:sOK, family:fam, points:pts };
+  S.resetNotice = false;
+  S.screen = "reveal"; save(); render();
+}
+
+/* ---------------- boot ---------------- */
+var saved = load();
+S = (saved && saved.screen) ? saved : fresh();
+if(!Array.isArray(S.answers)) S.answers = [];
+if(!S.room) S.room = defaultRoom();
+if(new URLSearchParams(location.search).get("room")&&new URLSearchParams(location.search).get("room")!==S.room){S=fresh();}
+if(!S.play) S.play = "team";
+if(window.LIVE){
+  LIVE.setRoom("dialogue",S.room);
+  LIVE.connection().onStatus=liveStatus;
+  LIVE.connection().onAck=function(team){if(LIVE.isLive()){S.startedAt=team.startedAt;S.finishedAt=team.finishedAt;save();}};
+  if(S.team&&S.room&&LIVE.connection().connection?.room===S.room){
+    startControlWatch();
+    LIVE.resume().then(function(team){if(team){applyTeam(team);render();}});
+  }
+}
+render();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('../../sw.js').catch(function(){});
+</script>
+</body>
+</html>

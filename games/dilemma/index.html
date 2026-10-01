@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Dilemma Table</title>
+<style>
+/* Layout concept: one working card at a time, meters pinned above the choices,
+   everything reachable with a thumb. Data in monospace, argument in sans. */
+:root{
+  --navy:#003366; --blue:#0066CC;
+  --value:#C1502E;            /* VALUE track */
+  --trust:#0F9B8E;            /* TRUST track */
+  --trust-2:#4FBCAE; --trust-1:#B7E4DD;
+  --danger:#B3261E;
+  --bg:#F2F5F7; --card:#FFFFFF; --line:#DCE3E9;
+  --ink:#16202B; --ink-2:#4A5A6A; --ink-3:#7A8896;
+  --shadow:0 1px 2px rgba(16,32,48,.06), 0 6px 20px rgba(16,32,48,.07);
+  --sans: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --r:10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --navy:#0A1A2B; --blue:#3E90E0;
+    --value:#E8845F; --trust:#3FC4B4; --trust-2:#2A8D81; --trust-1:#1D5A54;
+    --danger:#E5716A;
+    --bg:#0E151C; --card:#17212B; --line:#2A3846;
+    --ink:#EAF0F5; --ink-2:#A9B8C6; --ink-3:#7E8D9B;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --navy:#0A1A2B; --blue:#3E90E0;
+  --value:#E8845F; --trust:#3FC4B4; --trust-2:#2A8D81; --trust-1:#1D5A54;
+  --danger:#E5716A;
+  --bg:#0E151C; --card:#17212B; --line:#2A3846;
+  --ink:#EAF0F5; --ink-2:#A9B8C6; --ink-3:#7E8D9B;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:720px; margin:0 auto; padding-inline:16px; padding-block:0 40px}
+
+/* ---------- header ---------- */
+header.top{
+  background:linear-gradient(100deg, var(--navy), var(--blue));
+  color:#fff; padding-block:14px; margin-bottom:18px;
+}
+header.top .wrap{padding-block:0; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+.brand{font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:13px}
+.brand small{display:block; font-weight:400; letter-spacing:.04em; text-transform:none; font-size:11.5px; opacity:.85}
+.hud{margin-left:auto; display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+.hud .stat{font-family:var(--mono); font-size:12.5px; opacity:.95; white-space:nowrap}
+.hud .stat b{font-size:16px}
+button.restart{font:inherit; font-size:12.5px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35); color:#fff; border-radius:7px; padding:6px 11px; cursor:pointer}
+button.restart:hover{background:rgba(255,255,255,.24)}
+.banner{background:color-mix(in srgb, var(--danger) 12%, var(--card)); border:1.5px solid var(--danger); color:var(--ink); border-radius:10px; padding:14px 18px; margin-bottom:14px; font-weight:650}
+.raceline{display:flex; gap:26px; flex-wrap:wrap; font-family:var(--mono); font-size:14px; color:var(--ink-2); margin:10px 0 0}
+.raceline b{color:var(--ink); font-size:20px}
+button.ghost.warn{border-color:var(--danger); color:var(--danger)}
+
+/* ---------- cards ---------- */
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); padding:20px; margin-bottom:14px}
+h1{font-size:26px; line-height:1.2; margin:0 0 10px; text-wrap:balance; letter-spacing:-.01em}
+h2{font-size:19px; margin:0 0 8px; text-wrap:balance}
+p{margin:0 0 12px; color:var(--ink-2); max-width:62ch}
+p.lead{color:var(--ink); font-size:17px}
+.eyebrow{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); font-weight:700; margin-bottom:6px}
+.quote{border-left:3px solid var(--blue); padding:2px 0 2px 14px; margin:14px 0 18px; font-size:17px; color:var(--ink); max-width:62ch}
+.note{font-size:13.5px; color:var(--ink-3)}
+hr{border:0; border-top:1px solid var(--line); margin:18px 0}
+
+/* ---------- meters ---------- */
+.meters{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:6px}
+@media (max-width:520px){ .meters{grid-template-columns:1fr} }
+.meter{border:1px solid var(--line); border-radius:8px; padding:10px 12px; background:var(--card)}
+.meter .lab{display:flex; justify-content:space-between; align-items:baseline; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); font-weight:700}
+.meter .val{font-family:var(--mono); font-size:13px; letter-spacing:0; color:var(--ink); text-transform:none}
+.segs{display:flex; gap:2px; margin-top:8px}
+.segs i{flex:1; height:10px; border-radius:2px; background:var(--line); display:block}
+.segs.trust i.on1{background:var(--trust-1)} .segs.trust i.on2{background:var(--trust-2)} .segs.trust i.on3{background:var(--trust)}
+.segs.mand i.on{background:var(--navy)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .segs.mand i.on{background:var(--blue)} }
+:root[data-theme="dark"] .segs.mand i.on{background:var(--blue)}
+.running{font-family:var(--mono); font-size:14px; color:var(--ink-2); margin:10px 0 0}
+.running b{color:var(--value); font-size:18px}
+
+/* ---------- choices ---------- */
+.group{margin-top:18px}
+.group>.eyebrow{margin-bottom:8px}
+.opts{display:flex; flex-direction:column; gap:8px}
+button.opt{
+  text-align:left; width:100%; font:inherit; color:var(--ink);
+  background:var(--card); border:1.5px solid var(--line); border-radius:8px;
+  padding:12px 14px; cursor:pointer; display:flex; gap:12px; align-items:flex-start;
+  transition:border-color .12s, background .12s;
+}
+button.opt:hover:not(:disabled){border-color:var(--blue)}
+button.opt[aria-pressed="true"]{border-color:var(--blue); background:color-mix(in srgb, var(--blue) 9%, var(--card))}
+button.opt:disabled{opacity:.42; cursor:not-allowed}
+button.opt .t{font-weight:650}
+button.opt .d{display:block; font-weight:400; color:var(--ink-2); font-size:13.5px; margin-top:2px}
+button.opt .cost{margin-left:auto; font-family:var(--mono); font-size:12.5px; color:var(--ink-3); white-space:nowrap; padding-top:2px}
+.opts.row{flex-direction:row; flex-wrap:wrap}
+.opts.row button.opt{flex:1 1 150px}
+
+/* ---------- actions ---------- */
+.actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:20px}
+button.go{
+  font:inherit; font-weight:700; letter-spacing:.04em; border:0; border-radius:8px;
+  background:var(--blue); color:#fff; padding:13px 22px; cursor:pointer;
+}
+button.go:disabled{background:var(--line); color:var(--ink-3); cursor:not-allowed}
+button.ghost{font:inherit; background:transparent; border:1.5px solid var(--line); color:var(--ink-2); border-radius:8px; padding:9px 14px; cursor:pointer}
+.clock{font-family:var(--mono); font-size:22px; font-variant-numeric:tabular-nums; color:var(--ink); min-width:72px}
+.clock.low{color:var(--danger)}
+
+/* ---------- misc ---------- */
+.pill{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:4px 10px; border-radius:999px; background:color-mix(in srgb, var(--blue) 12%, transparent); color:var(--blue)}
+.pill.warn{background:color-mix(in srgb, var(--value) 16%, transparent); color:var(--value)}
+.triple{border:1.5px solid var(--value); background:color-mix(in srgb, var(--value) 8%, var(--card))}
+.deltas{font-family:var(--mono); font-size:14px; line-height:1.9; margin:14px 0}
+.deltas .plus{color:var(--value); font-weight:700}
+.deltas .minus{color:var(--ink-3)}
+.deltas .up{color:var(--trust); font-weight:700}
+.code{font-family:var(--mono); font-size:44px; font-weight:700; letter-spacing:.18em; color:var(--navy); background:var(--bg); border:1px dashed var(--line); border-radius:8px; padding:14px 8px; text-align:center; margin:8px 0}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .code{color:var(--blue)} }
+:root[data-theme="dark"] .code{color:var(--blue)}
+table.bd{width:100%; border-collapse:collapse; font-size:14.5px; margin:8px 0 4px}
+table.bd td{padding:7px 0; border-bottom:1px solid var(--line)}
+table.bd td:last-child{text-align:right; font-family:var(--mono); font-variant-numeric:tabular-nums}
+table.bd tr:last-child td{border-bottom:0; font-weight:700; font-size:17px}
+textarea{width:100%; min-height:190px; font:inherit; font-size:15px; padding:12px; border:1.5px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink); resize:vertical}
+textarea:focus{outline:2px solid var(--blue); outline-offset:1px}
+:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+details.how{margin-top:10px}
+details.how summary{cursor:pointer; font-weight:650; color:var(--blue)}
+details.how table{width:100%; border-collapse:collapse; font-size:14px; margin:12px 0}
+details.how th,details.how td{text-align:left; padding:6px 8px 6px 0; border-bottom:1px solid var(--line); vertical-align:top}
+details.how th{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3)}
+.foot{font-size:12px; color:var(--ink-3); text-align:center; padding:22px 16px 8px; max-width:62ch; margin:0 auto}
+.foot a{color:var(--ink-3)}
+.wrong{color:var(--danger); font-weight:650}
+@media (prefers-reduced-motion:no-preference){
+  .card{animation:rise .22s ease-out}
+  @keyframes rise{from{opacity:.4; transform:translateY(4px)} to{opacity:1; transform:none}}
+}
+.live-status{padding:10px 4px;font-size:14px;color:var(--ink-2)}.game-home{font-size:14px;color:inherit}.top .brand{line-height:1.3}.game-logo{display:block;padding:7px;background:white;border-radius:6px}.game-logo img{width:85px;display:block;height:auto}@media(max-width:500px){.game-logo img{width:65px}.brand{font-size:12px}.hud{margin-left:0;width:100%;gap:10px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="game-logo" href="../../#games"><img src="../../assets/itcilo-logo.png" alt="ITCILO"></a><div class="brand">The Dilemma Table<small>ITCILO · Negotiation Skills Workshop, Kenya</small></div>
+    <div class="hud" id="hud"></div>
+  </div>
+</header>
+<div class="wrap"><div id="liveStatus" class="note live-status" role="status"></div><div id="app"></div></div>
+<p class="foot">Training simulation. Sagana County Health Services and Lakeside Technical University are fictional, and all figures are illustrative and for training purposes only.<br><a href="../../#games">Workshop dashboard</a> · <a href="https://platform-grievance-india.darrin-dookie.chatgpt.site/games/facilitator" target="_blank" rel="noopener">Secure facilitator view</a></p>
+
+<script src="../../race.js?v=3"></script>
+<script src="live.js?v=3"></script>
+<script>
+"use strict";
+/* ========================================================================
+   THE DILEMMA TABLE — ITC-ILO Kenya workshop, Day 3 Session 1
+   Payoff design verified by exhaustive search over all 32,768 strategies.
+   Do not change BASE / FINAL / REVEAL_COST / MANDATE without re-running it.
+   ===================================================================== */
+
+var BASE  = [[2,5,9],[5,8,12],[8,7,4]];      // BASE[claim][trust]
+var FINAL = [[1,3,8],[2,6,14],[5,5,6]];      // round 5, then x3
+var REVEAL_COST  = [0,1,3];
+var MANDATE_COST = [2,1,0];
+var MANDATE_BUDGET = 6;
+var ROUND_SECONDS = 150;
+var OPTIONS_SECONDS = 240;
+
+var TRUST_NAME = ["Closed","Guarded","Open"];
+
+var ISSUES = [
+ { note:"Pure money. There is nothing here to trade.",
+   health:{ name:"Night-duty allowance",
+     quote:"The night-duty allowance has not moved in four years. I know that. But the wage bill is where it is, and I am not in a position to discuss a figure this morning.",
+     resp:["They restate the wage-bill position and write nothing down. You leave knowing exactly what you knew when you walked in.",
+           "They acknowledge the four years and say any figure waits for the costing. Not a concession, but not a door closing either.",
+           "They tell you the allowance is affordable at two of the three levels being discussed internally, and that it is the third the finance office objects to. That is more than they had to say."]},
+   he:{ name:"Overtime payment",
+     quote:"The overtime rate has not moved in four years. I know that. But the recurrent budget is what it is, and I am not in a position to discuss a figure this morning.",
+     resp:["They restate the budget position and write nothing down. You leave knowing exactly what you knew when you walked in.",
+           "They acknowledge the four years and say any figure waits for the costing. Not a concession, but not a door closing either.",
+           "They tell you the rate is affordable at two of the three levels the council has looked at, and that it is the third the finance office objects to. That is more than they had to say."]}},
+
+ { note:"They care about the sequence. You care about the number.",
+   health:{ name:"Filling vacant posts",
+     quote:"We have 94 approved posts unfilled. Nobody in this room thinks that is acceptable. What we cannot tell you is when the recruitment authority will release them.",
+     resp:["They repeat that the posts are not within their gift and move to the next item. You learn nothing about the timetable.",
+           "They say a batch is expected this financial year and decline to say how large. You can work with that, barely.",
+           "They tell you 40 of the 94 have already been released and the rest are held until the next quarter — and that their real problem is the sequence, not the number."]},
+   he:{ name:"Filling vacant lecturer posts",
+     quote:"We have 31 approved lecturer posts unfilled. Nobody in this room thinks that is acceptable. What we cannot tell you is when the council will release them.",
+     resp:["They repeat that the posts sit with the council and move to the next item. You learn nothing about the timetable.",
+           "They say some will be advertised this academic year and decline to say how many. You can work with that, barely.",
+           "They tell you 12 of the 31 are already cleared for advertisement and the rest wait on the next budget — and that their real problem is the sequence, not the number."]}},
+
+ { note:"Cheap for them. Valuable to your members. Those are the best issues on any table.",
+   health:{ name:"Shift rota and rest days",
+     quote:"The rota is an operational matter. I am willing to listen. I would not want you to think it is on the table in the way the allowance is.",
+     resp:["They keep the rota filed under operations and decline to take it further.",
+           "They agree to look at the rest-day pattern without committing to change anything.",
+           "They ask what a workable rota would actually look like, and write your answer down. It costs them very little and they know it."]},
+   he:{ name:"Timetable and contact hours",
+     quote:"The timetable is an academic management matter. I am willing to listen. I would not want you to think it is on the table in the way the payment is.",
+     resp:["They keep the timetable filed under academic management and decline to take it further.",
+           "They agree to look at the contact-hour spread without committing to change anything.",
+           "They ask what a workable spread would actually look like, and write your answer down. It costs them very little and they know it."]}},
+
+ { note:"Both sides want this cleared. What it costs depends entirely on how it is phased.",
+   health:{ name:"The promotion backlog",
+     quote:"The backlog goes back three years. Everybody in this room agrees it should be cleared. Nobody in this room has the money to clear it at once.",
+     resp:["They call the backlog a treasury matter and leave it there.",
+           "They agree it is a priority and put no mechanism on the table.",
+           "They say they could clear the two oldest cohorts this year if the third waits until July — and ask whether that would hold with your members."]},
+   he:{ name:"The promotion backlog",
+     quote:"The backlog goes back three years. Everybody in this room agrees it should be cleared. Nobody in this room has the money to clear it at once.",
+     resp:["They call the backlog a council matter and leave it there.",
+           "They agree it is a priority and put no mechanism on the table.",
+           "They say they could clear the two oldest cohorts this year if the third waits until the new academic year — and ask whether that would hold with your members."]}},
+
+ { note:"Common interest. You both want this. Whether you can reach it depends on the four rounds behind you.",
+   health:{ name:"Occupational safety and health committee",
+     quote:"Before we close — there is the safety committee. Frankly, we have wanted this for two years and it has never reached the top of anyone's agenda.",
+     resp:["They note your position for the record. No committee is established today.",
+           "They agree in principle and refer the terms of reference to a later meeting that is not scheduled.",
+           "They agree the committee: equal numbers, a chair you both accept, and a first meeting inside a month. You have both wanted this for two years."]},
+   he:{ name:"Campus safety and harassment committee",
+     quote:"Before we close — there is the safety and harassment committee. Frankly, we have wanted this for two years and it has never reached the top of anyone's agenda.",
+     resp:["They note your position for the record. No committee is established today.",
+           "They agree in principle and refer the terms of reference to a later meeting that is not scheduled.",
+           "They agree the committee: equal numbers, a chair you both accept, and a first meeting inside a month. You have both wanted this for two years."]}}
+];
+
+var REVEAL_OPTS = [
+  {t:"Say nothing", d:"Keep your position to yourself.", cost:"0"},
+  {t:"Signal a priority", d:"Tell them which issue matters most — not why.", cost:"−1"},
+  {t:"Disclose your constraint", d:"Tell them what you actually need, and why.", cost:"−3"}
+];
+var CLAIM_OPTS = [
+  {t:"Concede", d:"Move substantially towards them.", cost:"2 units"},
+  {t:"Moderate", d:"Move, but ask for movement back.", cost:"1 unit"},
+  {t:"Hold firm", d:"Restate your position. No movement.", cost:"0 units"}
+];
+
+var FAMILIES = [
+ {k:"TIME",    label:"phasing and timing", words:["phase","phased","stagger","staged","pilot","trial","review","timeline","backdate","instalment","installment","tranche","over three years","over two years","sequence"]},
+ {k:"FORM",    label:"paying in a different currency", words:["in kind","in-kind","leave","time off","training","transport","housing","non-monetary","nonmonetary","allowance","recognition","study","sabbatical","childcare"]},
+ {k:"SCOPE",   label:"narrowing who or what it covers", words:["cadre","grade","subset","priority","threshold","cap","pro rata","pro-rata","first tranche","lowest paid","longest serving","oldest cohort"]},
+ {k:"PROCESS", label:"building a mechanism", words:["joint committee","working group","data","audit","joint review","monitoring","escalation","dispute clause","task team","terms of reference","joint body"]},
+ {k:"SAFETY",  label:"the joint safety agenda", words:["safety","health and safety","harassment","violence","protective","biological","ppe","c190","c192","convention"]}
+];
+
+/* ---------------- state ---------------- */
+var S = null;
+var KEY = "naivasha-dilemma-v5";
+var stopControl = null, hudTimer = null;
+
+function defaultRoom(){
+  try{
+    var q = new URLSearchParams(location.search).get("room");
+    if(q) return q.toUpperCase().replace(/[^A-Z0-9]/g,"");
+    var h = (location.hash || "").replace("#","").toUpperCase().replace(/[^A-Z0-9]/g,"");
+    if(h) return h;
+  }catch(e){}
+  return "";
+}
+function fresh(){
+  return { screen:"landing", team:"", sector:"health", play:"team", room:defaultRoom(), round:0,
+           trust:1, mandateSpent:0, total:0, history:[],
+           reveal:null, claim:null, optionsText:"", optionsBonus:0, optionsHits:[],
+           deadline:0, startedAt:0, finishedAt:0, generation:0, resetNotice:false };
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function load(){ try{ var r=localStorage.getItem(KEY); return r?JSON.parse(r):null; }catch(e){ return null; } }
+function restart(keepIdentity){
+  if(window.LIVE&&LIVE.isLive()){alert("Your facilitator can restart this team from the secure race board.");return;}
+  var k = keepIdentity ? { team:S.team, sector:S.sector, play:S.play, room:S.room, generation:S.generation } : null;
+  try{ localStorage.removeItem(KEY); }catch(e){}
+  try{ if(window.LIVE) LIVE.withdraw(); }catch(e){}
+  S = fresh();
+  if(k){ S.team=k.team; S.sector=k.sector; S.play=k.play; S.room=k.room; S.generation=k.generation; }
+  save(); render();
+}
+
+/* ---------------- scoring ---------------- */
+function roundValue(claim, trust, reveal, isFinal){
+  var tbl = isFinal ? FINAL : BASE;
+  var v = tbl[claim][trust] - REVEAL_COST[reveal];
+  return isFinal ? v*3 : v;
+}
+function scoreOptions(text){
+  var lines = text.split("\n").map(function(s){ return s.trim(); })
+                  .filter(function(s){ return s.length >= 4; });
+  var seen = {}, distinct = [];
+  lines.forEach(function(l){ var k=l.toLowerCase(); if(!seen[k]){ seen[k]=1; distinct.push(l); } });
+  var n = Math.min(distinct.length, 10);
+  var low = text.toLowerCase();
+  var hits = FAMILIES.filter(function(f){
+    return f.words.some(function(w){ return low.indexOf(w) !== -1; });
+  }).slice(0,3);
+  return { count:distinct.length, counted:n, hits:hits, bonus:n*2 + hits.length*6 };
+}
+function referred(){ return S.mandateSpent > MANDATE_BUDGET; }
+function finalScore(){
+  var raw = S.total + S.optionsBonus;
+  return Math.max(0, Math.round(raw * (referred() ? 0.5 : 1)));
+}
+function elapsedMs(){
+  if(window.LIVE&&LIVE.isLive())return LIVE.connection().elapsed(); return S.startedAt ? ((S.finishedAt || Date.now()) - S.startedAt) : 0; }
+function clock(ms){
+  var s = Math.max(0, Math.floor(ms/1000));
+  return Math.floor(s/60) + ":" + ("0" + (s%60)).slice(-2);
+}
+/* Six characters: score, time in 5-second units, checksum, mandate flag. */
+function encode(score, ms, ref){
+  var b36 = function(v){ return v.toString(36).toUpperCase(); };
+  var n = Math.max(0, Math.min(1295, Math.round(score)));
+  var t = Math.max(0, Math.min(1295, Math.round(ms/5000)));
+  var chk = (n*7 + t*11 + 13) % 36;
+  return b36(Math.floor(n/36)) + b36(n%36) + b36(Math.floor(t/36)) + b36(t%36) + b36(chk) + (ref ? "R" : "K");
+}
+
+/* ---------------- live ---------------- */
+function publish(){
+  if(!window.LIVE || !S.team) return;
+  var stepNames = ["Round 1","Round 2","Round 3","Round 4","Options","Round 5"];
+  var step = S.screen === "options" ? 5 : Math.min(S.round + 1, 5);
+  if(S.round === 4 && S.screen !== "options") step = 6;
+  LIVE.publish({
+    state:S, game:"dilemma", name:S.team, sector:S.sector, play:S.play,
+    step: step, steps: 6,
+    stepName: S.screen === "final" ? "Finished" : (stepNames[step-1] || "Round 1"),
+    done: S.screen === "final",
+    score: S.screen === "final" ? finalScore() : S.total,
+    running: S.total,
+    trust: S.trust, mandateLeft: Math.max(0, MANDATE_BUDGET - S.mandateSpent),
+    referred: referred(),
+    startedAt: S.startedAt, finishedAt: S.finishedAt || 0
+  });
+}
+function startControlWatch(){
+  if(!window.LIVE || stopControl) return;
+  stopControl=LIVE.watchControl(function(gen,team){
+    var old={team:S.team,sector:S.sector,play:S.play,room:S.room};
+    S=Object.assign(fresh(),team.state||{},old,{generation:gen,startedAt:team.startedAt,finishedAt:team.finishedAt,resetNotice:true});
+    if(!Object.keys(team.state||{}).length)S.screen="round";
+    save();render(); if(S.screen==="round"&&!S.deadline)startClock(ROUND_SECONDS,autoSubmit);else if(S.screen==="options"&&!S.deadline)startClock(OPTIONS_SECONDS,function(){});
+  });
+}
+function liveStatus(){
+  var c=LIVE.connection(),el=document.getElementById("liveStatus");
+  if(el)el.textContent=c.active()?c.label()+" · SESSION "+c.connection.room:"Practice · progress saved on this device";
+}
+function applyTeam(team,force){
+  var identity={team:team.name,sector:team.sector,play:S.play,room:team.room};
+  var c=LIVE.connection();
+  if(force||S.generation!==team.generation||!c.pending)S=Object.assign(fresh(),team.state||{},identity);
+  else Object.assign(S,identity);
+  S.generation=team.generation;S.startedAt=team.startedAt;S.finishedAt=team.finishedAt;
+  if(!Object.keys(team.state||{}).length)S.screen="round";
+  save();
+}
+
+function we(){ return S.play === "solo" ? "you" : "your team"; }
+
+function hud(){
+  var el = document.getElementById("hud");
+  if(!el) return;
+  if(!S.team || S.screen === "landing" || S.screen === "setup"){ el.innerHTML = ""; return; }
+  el.innerHTML =
+    '<span class="stat">' + esc(S.team) + '</span>' +
+    '<span class="stat">Value <b>' + S.total + '</b></span>' +
+    '<span class="stat">Time <b id="hudClock">' + clock(elapsedMs()) + '</b></span>' +
+    '<button class="restart" id="restartBtn">Restart</button>' + (LIVE.isLive()?'<button class="restart" id="leaveRaceBtn">Leave race</button>':'') + '';
+  var leave=document.getElementById("leaveRaceBtn");if(leave)leave.onclick=function(){if(!confirm("Leave the live table? Your result stays on the facilitator board. You can rejoin with the same code."))return;var identity={team:S.team,sector:S.sector,play:S.play};LIVE.connection().stop();S=Object.assign(fresh(),identity,{room:"",screen:"setup"});save();render();};
+  var b = document.getElementById("restartBtn"), armed = false;
+  b.onclick = function(){
+    if(!armed){ armed = true; b.textContent = "Tap again to restart"; setTimeout(function(){ armed=false; b.textContent="Restart"; }, 4000); return; }
+    restart(true);
+  };
+  clearInterval(hudTimer);
+  hudTimer = setInterval(function(){
+    var c = document.getElementById("hudClock");
+    if(c) c.textContent = clock(elapsedMs());
+  }, 1000);
+}
+
+/* ---------------- timer ---------------- */
+var tick = null;
+function startClock(sec, onZero){
+  S.deadline = Date.now() + sec*1000; save();
+  stopClock();
+  tick = setInterval(function(){
+    var el = document.getElementById("clock");
+    if(!el){ stopClock(); return; }
+    var left = Math.max(0, Math.ceil((S.deadline - Date.now())/1000));
+    el.textContent = Math.floor(left/60) + ":" + ("0" + (left%60)).slice(-2);
+    el.classList.toggle("low", left <= 20);
+    if(left <= 0){ stopClock(); onZero(); }
+  }, 250);
+}
+function stopClock(){ if(tick){ clearInterval(tick); tick = null; } }
+
+/* ---------------- helpers ---------------- */
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+  return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]; }); }
+function issue(){ return ISSUES[S.round][S.sector]; }
+function segs(cls, total, on, klass){
+  var h = '<span class="segs ' + cls + '">';
+  for(var i=0;i<total;i++) h += '<i class="' + (i<on ? (klass||"on") : "") + '"></i>';
+  return h + "</span>";
+}
+function trustSegs(t){
+  var cls = t===0 ? "" : (t===1 ? "on2" : "on3");
+  var h = '<span class="segs trust">';
+  for(var i=0;i<3;i++) h += '<i class="' + (i <= t && t>0 ? cls : (i===0 && t===0 ? "" : "")) + '"></i>';
+  return h + "</span>";
+}
+function metersHTML(){
+  var t = S.trust;
+  var filled = t===0 ? 1 : (t===1 ? 2 : 3);
+  var klass  = t===0 ? "on1" : (t===1 ? "on2" : "on3");
+  var left = MANDATE_BUDGET - S.mandateSpent;
+  return '<div class="meters">' +
+    '<div class="meter"><span class="lab">Trust <span class="val">' + TRUST_NAME[t] + '</span></span>' +
+      segs("trust", 3, filled, klass) + '</div>' +
+    '<div class="meter"><span class="lab">Mandate <span class="val">' + left + ' of ' + MANDATE_BUDGET + ' left</span></span>' +
+      segs("mand", MANDATE_BUDGET, Math.max(0,left)) + '</div>' +
+  '</div>';
+}
+function optButtons(list, name, chosen, disabledIdx){
+  return list.map(function(o,i){
+    var dis = (disabledIdx.indexOf(i) !== -1);
+    return '<button class="opt" type="button" data-pick="' + name + '" data-i="' + i + '"' +
+      ' aria-pressed="' + (chosen===i) + '"' + (dis ? " disabled" : "") + '>' +
+      '<span><span class="t">' + o.t + '</span><span class="d">' + o.d + '</span></span>' +
+      '<span class="cost">' + o.cost + '</span></button>';
+  }).join("");
+}
+
+/* ---------------- screens ---------------- */
+function render(){
+  stopClock();
+  var app = document.getElementById("app");
+  app.innerHTML = ({
+    landing: viewLanding, setup: viewSetup, round: viewRound,
+    result: viewResult, options: viewOptions, final: viewFinal
+  })[S.screen]();
+  hud(); wire(); publish(); liveStatus();
+  window.scrollTo(0,0);
+}
+
+function viewLanding(){
+  return (S.resetNotice ? '<div class="banner">The facilitator has restarted the game. Press Start when you are ready.</div>' : '') +
+    '<div class="card">' +
+    '<h1>Five issues. One counterpart. Two things you can never do at once.</h1>' +
+    '<p class="lead">You are the negotiating team. Every round you decide how much to tell them and how hard to push. Telling them costs you now. Not telling them costs you later. The last issue is worth triple.</p>' +
+    '<p class="lead"><b>Highest value wins.</b> Your time is on the clock and settles a tie, but this is a game about judgement, not speed \u2014 a team that rushes it will lose to one that thinks.</p>' +
+    '<details class="how"><summary>How to play</summary>' +
+      '<p style="margin-top:12px">Each round you make two choices before the clock runs out.</p>' +
+      '<table><tr><th>Reveal</th><th>Costs you</th><th>Does to them</th></tr>' +
+      '<tr><td>Say nothing</td><td>0</td><td>Cooperation falls a step</td></tr>' +
+      '<tr><td>Signal a priority</td><td>1 point</td><td>Cooperation holds where it is</td></tr>' +
+      '<tr><td>Disclose your constraint</td><td>3 points</td><td>Cooperation rises a step</td></tr></table>' +
+      '<table><tr><th>Claim</th><th>Costs your mandate</th></tr>' +
+      '<tr><td>Concede</td><td>2 of 6 units</td></tr>' +
+      '<tr><td>Moderate</td><td>1 unit</td></tr>' +
+      '<tr><td>Hold firm</td><td>nothing</td></tr></table>' +
+      '<p>Spend more than six units of mandate across the game and your own constituency refers the deal back: your score is halved. In this simulation, full disclosure cannot be combined with holding firm — the game will not let you.</p>' +
+    '</details>' +
+    '<div class="actions"><button class="go" id="toSetup">Start</button></div>' +
+  '</div>';
+}
+
+function viewSetup(){
+  return '<div class="card">' +
+    '<div class="eyebrow">Your team</div>' +
+    '<h2>Who is at this table?</h2>' +
+    '<p>No names, no emails. Just a team name your facilitator can read out.</p>' +
+    '<div class="opts row" style="margin-bottom:18px">' +
+      '<button class="opt" type="button" data-pick="play" data-i="team" aria-pressed="' + (S.play==="team") + '"><span><span class="t">As a team</span><span class="d">Around a table, one device</span></span></button>' +
+      '<button class="opt" type="button" data-pick="play" data-i="solo" aria-pressed="' + (S.play==="solo") + '"><span><span class="t">On my own</span><span class="d">One person, one device</span></span></button>' +
+    '</div>' +
+    '<label for="teamName" class="eyebrow">' + (S.play==="solo" ? "Your name or nickname" : "Team name") + '</label>' +
+    '<input id="teamName" maxlength="24" placeholder="' + (S.play==="solo" ? "e.g. Amina" : "e.g. Table 3") + '" value="' + esc(S.team) + '" ' +
+      'style="width:100%;font:inherit;font-size:17px;padding:12px;border:1.5px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);margin-bottom:18px">' +
+    '<div class="eyebrow">Your sector</div>' +
+    '<div class="opts row" style="margin-top:8px;margin-bottom:18px">' +
+      '<button class="opt" type="button" data-pick="sector" data-i="health" aria-pressed="' + (S.sector==="health") + '"><span><span class="t">Public health</span><span class="d">Sagana County Health Services</span></span></button>' +
+      '<button class="opt" type="button" data-pick="sector" data-i="he" aria-pressed="' + (S.sector==="he") + '"><span><span class="t">Higher education</span><span class="d">Lakeside Technical University</span></span></button>' +
+    '</div>' +
+    '<label for="roomCode" class="eyebrow">Session code</label>' +
+    '<input id="roomCode" maxlength="8" placeholder="Optional for practice" value="' + esc(S.room) + '" ' +
+      'style="font:inherit;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;font-size:16px;padding:12px;border:1.5px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);max-width:240px">' +
+    '<p class="note" style="margin-top:6px">Enter the eight-character code from your facilitator for a live race. Leave blank to practise on this device.</p>' +
+    '<div class="actions"><button class="go" id="begin">Take your seats</button></div>' +
+  '</div>';
+}
+
+function viewRound(){
+  var isFinal = S.round === 4;
+  var iss = issue();
+  var disabled = (S.reveal === 2) ? [2] : [];
+  return (S.resetNotice ? '<div class="banner">The facilitator has restarted the game. Every table begins again from round one.</div>' : '') +
+    '<div class="card' + (isFinal ? " triple" : "") + '">' +
+    '<span class="pill' + (isFinal ? " warn" : "") + '">' +
+      (isFinal ? "Final issue — worth triple" : "Round " + (S.round+1) + " of 5") + '</span>' +
+    '<h2 style="margin-top:12px">' + iss.name + '</h2>' +
+    '<div class="quote">' + iss.quote + '</div>' +
+    (isFinal ? '<p class="note" style="margin-top:-6px">This is the issue you both actually want. Whether you can reach it depends on the four rounds behind you.</p>' : '') +
+    metersHTML() +
+    '<p class="running">Value so far <b>' + S.total + '</b></p>' +
+    '<div class="group"><div class="eyebrow">1 · How much do you tell them?</div>' +
+      '<div class="opts">' + optButtons(REVEAL_OPTS, "reveal", S.reveal, []) + '</div></div>' +
+    '<div class="group"><div class="eyebrow">2 · How hard do you push?</div>' +
+      '<div class="opts">' + optButtons(CLAIM_OPTS, "claim", S.claim, disabled) + '</div>' +
+      (S.reveal === 2 ? '<p class="note" style="margin-top:8px">In this simulation, full disclosure cannot be combined with holding firm.</p>' : '') +
+    '</div>' +
+    (S.mandateSpent + (S.claim!==null ? MANDATE_COST[S.claim] : 0) > MANDATE_BUDGET
+      ? '<p class="note" style="color:var(--danger);font-weight:650;margin-top:14px">This takes you beyond your mandate. You may still do it — but your constituency will refer the deal back, and your final score is halved.</p>' : '') +
+    '<div class="actions">' +
+      '<span class="clock" id="clock">2:30</span>' +
+      '<button class="ghost" id="plus30">+30s</button>' +
+      '<button class="go" id="lock" ' + (S.reveal===null || S.claim===null ? "disabled" : "") + '>Submit this round</button>' +
+    '</div>' +
+  '</div>';
+}
+
+function viewResult(){
+  var h = S.history[S.history.length-1];
+  var iss = ISSUES[h.round][S.sector];
+  var arrow = h.trustBefore === h.trustAfter
+      ? TRUST_NAME[h.trustAfter] + " — unchanged"
+      : TRUST_NAME[h.trustBefore] + " → " + TRUST_NAME[h.trustAfter];
+  var gross = h.value + (h.round===4 ? REVEAL_COST[h.reveal]*3 : REVEAL_COST[h.reveal]);
+  return '<div class="card">' +
+    '<div class="eyebrow">Round ' + (h.round+1) + ' · ' + iss.name + '</div>' +
+    '<h2>What they did</h2>' +
+    '<p class="lead">' + iss.resp[h.trustBefore] + '</p>' +
+    '<hr>' +
+    '<div class="deltas">' +
+      '<span class="plus">+' + gross + '</span> value on the issue<br>' +
+      (REVEAL_COST[h.reveal] ? '<span class="minus">−' + (h.round===4 ? REVEAL_COST[h.reveal]*3 : REVEAL_COST[h.reveal]) + '</span> for ' + (h.reveal===2 ? "disclosing your constraint" : "signalling a priority") + '<br>' : '') +
+      (h.round===4 ? '<span class="minus">×3</span> final issue<br>' : '') +
+      '<b>' + h.value + '</b> this round · running total <b>' + S.total + '</b><br>' +
+      '<span class="up">Trust</span> ' + arrow + ' · mandate ' + (MANDATE_BUDGET - S.mandateSpent) + ' of ' + MANDATE_BUDGET + ' left' +
+    '</div>' +
+    (referred() ? '<p class="note" style="color:var(--danger);font-weight:650">You are now beyond your mandate. The deal will be referred back.</p>' : '') +
+    '<div class="actions"><button class="go" id="next">' +
+      (S.round === 3 ? "Before the last issue…" : (S.round === 4 ? "See your score" : "Next round")) +
+    '</button></div>' +
+  '</div>';
+}
+
+function viewOptions(){
+  return '<div class="card">' +
+    '<span class="pill">Between rounds · four minutes</span>' +
+    '<h2 style="margin-top:12px">Generate options before you decide anything</h2>' +
+    '<p class="lead">Type as many possible packages as your team can think of, one per line. Do not evaluate them, do not argue about them, and do not stop at the first good one. Quantity now, judgement later.</p>' +
+    '<textarea id="opts" placeholder="One option per line…">' + esc(S.optionsText) + '</textarea>' +
+    '<p class="note" id="optCount">0 options generated</p>' +
+    '<div class="actions">' +
+      '<span class="clock" id="clock">4:00</span>' +
+      '<button class="ghost" id="plus30">+30s</button>' +
+      '<button class="go" id="toFinal">Continue to the final issue</button>' +
+    '</div>' +
+  '</div>';
+}
+
+function chartSVG(){
+  var W = 640, H = 210, padL = 34, padR = 12, padT = 24, padB = 46;
+  var vals = S.history.map(function(h){ return h.value; });
+  var max = Math.max(14, Math.max.apply(null, vals));
+  var n = vals.length, plotW = W - padL - padR, plotH = H - padT - padB;
+  var step = plotW / n, bw = Math.min(58, step * 0.52);
+  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" ' +
+          'aria-label="Value earned in each of the five rounds, with the trust level entering each round." ' +
+          'style="width:100%;height:auto;max-width:100%;display:block">';
+  // baseline + one recessive gridline at the top of the scale
+  s += '<line x1="' + padL + '" y1="' + (padT) + '" x2="' + (W-padR) + '" y2="' + padT + '" stroke="var(--line)" stroke-width="1"/>';
+  s += '<text x="' + (padL-6) + '" y="' + (padT+4) + '" text-anchor="end" font-size="10" fill="var(--ink-3)" font-family="ui-monospace,monospace">' + max + '</text>';
+  s += '<line x1="' + padL + '" y1="' + (padT+plotH) + '" x2="' + (W-padR) + '" y2="' + (padT+plotH) + '" stroke="var(--ink-3)" stroke-width="1"/>';
+  for(var i=0;i<n;i++){
+    var h = S.history[i];
+    var v = Math.max(0, vals[i]);
+    var bh = Math.max(2, (v/max) * plotH);
+    var x = padL + step*i + (step-bw)/2;
+    var y = padT + plotH - bh;
+    s += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + bh.toFixed(1) + '" rx="4" fill="var(--value)"/>';
+    s += '<text x="' + (x+bw/2).toFixed(1) + '" y="' + (y-5).toFixed(1) + '" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)" font-family="ui-monospace,monospace">' + vals[i] + '</text>';
+    // trust strip under the baseline
+    var tcol = ["var(--line)","var(--trust-2)","var(--trust)"][h.trustBefore];
+    s += '<rect x="' + x.toFixed(1) + '" y="' + (padT+plotH+8) + '" width="' + bw.toFixed(1) + '" height="7" rx="2" fill="' + tcol + '"/>';
+    s += '<text x="' + (x+bw/2).toFixed(1) + '" y="' + (padT+plotH+30) + '" text-anchor="middle" font-size="10.5" fill="var(--ink-3)">R' + (i+1) + (i===4 ? " ×3" : "") + '</text>';
+    s += '<text x="' + (x+bw/2).toFixed(1) + '" y="' + (padT+plotH+42) + '" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">' + TRUST_NAME[h.trustBefore] + '</text>';
+  }
+  return s + '</svg>';
+}
+
+function viewFinal(){
+  var sc = finalScore();
+  var ms = elapsedMs();
+  var r5 = S.history[4] ? S.history[4].value : 0;
+  var r14 = S.total - r5;
+  var hitNames = S.optionsHits.map(function(f){ return f.label; });
+  var missed = FAMILIES.filter(function(f){ return !S.optionsHits.some(function(hit){return hit.k===f.k;}); }).map(function(f){ return f.label; });
+
+  var verdict = "";
+  var h5 = S.history[4];
+  if(referred()){
+    verdict = "<b>Referred back.</b> You spent more mandate than you had. The deal does not die — it goes back to the people who gave you the mandate, which is realistic and expensive. Your score is halved.";
+  } else if(h5 && h5.claim === 2 && h5.trustBefore === 2){
+    verdict = "<b>You spent four rounds earning their cooperation and then used it against them on the one issue you both wanted.</b> Holding firm against an open counterpart scored 6 where a moderate claim would have scored 14. That is 24 points, and in a real round it is the relationship you need next year.";
+  } else if(h5 && h5.trustBefore === 0){
+    verdict = "<b>You arrived at the last issue with nothing to spend.</b> The safety committee was the one thing both sides wanted, and by round five they were not listening. Cooperation is not available at the moment you need it — it has to be bought earlier.";
+  } else if(h5 && h5.trustBefore === 2 && h5.claim === 1){
+    verdict = "<b>You paid for cooperation early and collected on it at the end.</b> That is the whole game: disclosure is an investment, and the last issue is where it pays.";
+  } else {
+    verdict = "You finished with the counterpart <b>" + TRUST_NAME[h5 ? h5.trustBefore : S.trust].toLowerCase() + "</b>. Look at the trust strip under the chart and find the round where you stopped being able to change their behaviour.";
+  }
+
+  return '<div class="card">' +
+    '<div class="eyebrow">' + esc(S.team) + ' · ' + (S.sector==="health" ? "Public health" : "Higher education") + '</div>' +
+    '<h1 style="font-size:40px;margin:4px 0 2px;font-family:var(--mono);color:var(--value)">' + sc + '</h1>' +
+    '<p class="note" style="margin-top:0">' + (referred() ? "Final score after the deal was referred back" : "Final score") + '</p>' +
+    '<div class="raceline"><span>Time at the table <b>' + clock(ms) + '</b></span><span>Trust at the close <b>' + TRUST_NAME[S.trust] + '</b></span></div>' +
+    '<table class="bd">' +
+      '<tr><td>Rounds 1–4</td><td>' + r14 + '</td></tr>' +
+      '<tr><td>Round 5, the safety committee (×3)</td><td>' + r5 + '</td></tr>' +
+      '<tr><td>Options generated' + (S.optionsHits.length ? " — " + hitNames.join(", ") : "") + '</td><td>' + S.optionsBonus + '</td></tr>' +
+      (referred() ? '<tr><td class="wrong">Referred back — halved</td><td class="wrong">×0.5</td></tr>' : '') +
+      '<tr><td>Total</td><td>' + sc + '</td></tr>' +
+    '</table>' +
+  '</div>' +
+
+  '<div class="card">' +
+    '<div class="eyebrow">Your table, round by round</div>' +
+    chartSVG() +
+    '<p class="note">Bars are the value you took from each issue. The strip beneath each bar is how cooperative they were <em>entering</em> that round — which was decided by what you did in the round before.</p>' +
+  '</div>' +
+
+  '<div class="card">' +
+    '<div class="eyebrow">Your result code for the debrief</div>' +
+    '<div class="code">' + encode(sc, ms, referred()) + '</div>' +
+    '<p class="note">It records your score and time for a spoken debrief if the connection is unavailable. It does not submit a live result.</p>' +
+  '</div>' +
+
+  '<div class="card">' +
+    '<div class="eyebrow">What the table was worth</div>' +
+    '<p>' + verdict + '</p>' +
+    '<hr>' +
+    '<p class="note"><b>The best five-round score was 80</b> before the options bonus (up to 38 more points), and it comes from disclosing fully in round one, signalling in rounds two to four, and not paying for disclosure again once trust is banked. A team that never revealed anything and held firm every round scores <b>46</b>. A team that built trust for four rounds and then held firm on the last issue scores <b>56</b> — 24 points below the best five-round outcome. A team that conceded on everything is referred back before it reaches round five.</p>' +
+    (missed.length ? '<p class="note">Your options missed: ' + missed.join(", ") + '. Explore trades across time, form, scope and process as well as money.</p>' : '') +
+    '<hr>' +
+    '<div class="eyebrow">Three questions for the room</div>' +
+    '<p class="note">1 · At which round did you stop being able to change the counterpart’s behaviour?<br>' +
+    '2 · What did disclosure actually cost you, and when did it pay back?<br>' +
+    '3 · Which kinds of option did you not think of — and is that a habit you brought into the room?</p>' +
+    '<div class="actions"><button class="ghost warn" id="again">Play again</button></div>' +
+  '</div>';
+}
+
+/* ---------------- interaction ---------------- */
+function wire(){
+  var app = document.getElementById("app");
+
+  app.querySelectorAll('[data-pick]').forEach(function(b){
+    b.addEventListener("click", function(){
+      var k = b.getAttribute("data-pick"), v = b.getAttribute("data-i");
+      if(k === "sector" || k === "play"){ S[k] = v; }
+      else {
+        S[k] = Number(v);
+        if(k === "reveal" && S.reveal === 2 && S.claim === 2) S.claim = null;
+      }
+      var rc = document.getElementById("roomCode"); if(rc) S.room = rc.value.toUpperCase().replace(/[^A-Z0-9]/g,"");
+      var tn = document.getElementById("teamName"); if(tn) S.team = tn.value;
+      save();
+      if(S.screen === "round"){ var keep = S.deadline; render(); S.deadline = keep; resumeClock(); }
+      else render();
+    });
+  });
+
+  var g = function(id){ return document.getElementById(id); };
+
+  if(g("toSetup")) g("toSetup").onclick = function(){ S.screen = "setup"; save(); render(); };
+
+  if(g("begin")) g("begin").onclick = async function(){
+    var name = g("teamName").value.trim();
+    if(!name){ g("teamName").focus(); g("teamName").style.borderColor = "var(--danger)"; return; }
+    S.team = name;
+    S.room = g("roomCode").value.trim().toUpperCase();
+    if(S.room){
+      g("begin").disabled=true;
+      LIVE.setRoom("dilemma",S.room);
+      try{var team=await LIVE.join(S.team,S.sector);applyTeam(team,true);startControlWatch();save();render(); if(S.screen==="round"&&!S.deadline)startClock(ROUND_SECONDS,autoSubmit);else if(S.screen==="options"&&!S.deadline)startClock(OPTIONS_SECONDS,function(){});return;}
+      catch(e){g("begin").disabled=false;document.getElementById("liveStatus").textContent=e.message;document.getElementById("liveStatus").setAttribute("role","alert");return;}
+    } else LIVE.connection().stop();
+    
+    S.screen = "round"; S.round = 0; S.reveal = null; S.claim = null;
+    S.history = []; S.total = 0; S.trust = 1; S.mandateSpent = 0;
+    S.optionsText = ""; S.optionsBonus = 0; S.optionsHits = [];
+    S.startedAt = Date.now(); S.finishedAt = 0; S.resetNotice = false;
+    save(); render(); startClock(ROUND_SECONDS, autoSubmit);
+  };
+
+  if(g("lock")) g("lock").onclick = submitRound;
+  if(g("plus30")) g("plus30").onclick = function(){ S.deadline += 30000; save(); };
+
+  if(g("next")) g("next").onclick = function(){
+    if(S.round === 3){ S.screen = "options"; S.round = 4; save(); render(); startClock(OPTIONS_SECONDS, function(){}); }
+    else if(S.round === 4){ S.finishedAt = Date.now(); S.screen = "final"; save(); render(); }
+    else { S.round += 1; S.reveal = null; S.claim = null; S.screen = "round"; save(); render(); startClock(ROUND_SECONDS, autoSubmit); }
+  };
+
+  if(g("opts")){
+    var ta = g("opts");
+    var upd = function(){
+      S.optionsText = ta.value;
+      var r = scoreOptions(ta.value);
+      g("optCount").textContent = r.count + (r.count === 1 ? " option" : " options") + " generated";
+      save();
+    };
+    ta.addEventListener("input", upd); upd();
+  }
+  if(g("toFinal")) g("toFinal").onclick = function(){
+    var r = scoreOptions(S.optionsText);
+    S.optionsBonus = r.bonus; S.optionsHits = r.hits;
+    S.screen = "round"; S.reveal = null; S.claim = null;
+    save(); render(); startClock(ROUND_SECONDS, autoSubmit);
+  };
+
+  if(g("again")){
+    var ag = g("again"), agArmed = false;
+    ag.onclick = function(){
+      if(!agArmed){ agArmed = true; ag.textContent = "Tap again \u2014 this clears your score"; setTimeout(function(){ agArmed=false; ag.textContent="Play again"; }, 4000); return; }
+      restart(true);
+    };
+  }
+
+  if(S.screen === "round" || S.screen === "options") resumeClock();
+}
+
+function resumeClock(){
+  if(!S.deadline)return;
+  var left = Math.max(0, Math.ceil((S.deadline - Date.now())/1000));
+  if(left <= 0){if(S.screen==="round")setTimeout(autoSubmit,0);return;}
+  startClock(left, S.screen === "round" ? autoSubmit : function(){});
+}
+
+function autoSubmit(){
+  if(S.reveal === null) S.reveal = 0;
+  if(S.claim === null) S.claim = 1;
+  submitRound(true);
+}
+
+function submitRound(auto){
+  if(S.reveal === null || S.claim === null) return;
+  stopClock();
+  var isFinal = S.round === 4;
+  var before = S.trust;
+  var v = roundValue(S.claim, before, S.reveal, isFinal);
+  S.total += v;
+  S.mandateSpent += MANDATE_COST[S.claim];
+  S.trust = Math.max(0, Math.min(2, before + (S.reveal - 1)));
+  S.history.push({ round:S.round, reveal:S.reveal, claim:S.claim,
+                   trustBefore:before, trustAfter:S.trust, value:v, auto: auto === true });
+  S.screen = "result"; save(); render();
+}
+
+/* ---------------- boot ---------------- */
+var saved = load();
+S = (saved && saved.screen) ? saved : fresh();
+if(!S.room) S.room = defaultRoom();
+if(new URLSearchParams(location.search).get("room")&&new URLSearchParams(location.search).get("room")!==S.room){S=fresh();}
+if(!S.play) S.play = "team";
+if(window.LIVE){
+  LIVE.setRoom("dilemma",S.room);
+  LIVE.connection().onStatus=liveStatus;
+  LIVE.connection().onAck=function(team){if(LIVE.isLive()){S.startedAt=team.startedAt;S.finishedAt=team.finishedAt;save();}};
+  if(S.team&&S.room&&LIVE.connection().connection?.room===S.room){
+    startControlWatch();
+    LIVE.resume().then(function(team){if(team){applyTeam(team);render(); if(S.screen==="round"&&!S.deadline)startClock(ROUND_SECONDS,autoSubmit);else if(S.screen==="options"&&!S.deadline)startClock(OPTIONS_SECONDS,function(){});}});
+  }
+}
+if(S.screen === "round" || S.screen === "options"){
+  // Preserve the current deadline across a refresh.
+  if(!S.deadline)S.deadline = Date.now() + (S.screen === "options" ? OPTIONS_SECONDS : ROUND_SECONDS)*1000;
+}
+render();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('../../sw.js').catch(function(){});
+</script>
+</body>
+</html>
