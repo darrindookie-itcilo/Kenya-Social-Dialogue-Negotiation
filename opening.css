@@ -1,0 +1,54 @@
+.opening-note{font-size:13px;margin:9px 0 18px}
+.opening-cover .actions{flex-wrap:wrap}
+.eggs-desk{margin-bottom:24px;border-top:4px solid var(--brand-cyan)}
+.eggs-desk h2{margin:8px 0 10px}
+.eggs-desk .actions{flex-wrap:wrap}
+.opening-slide{justify-content:flex-start}
+.opening-slide:not(.has-qr):not(.has-eggs) .slide-copy{margin-block:auto}
+.opening-order{list-style:none;counter-reset:proceedings;padding:0;display:grid;gap:18px;margin:24px 0 0}
+.opening-order li{counter-increment:proceedings;display:flex;gap:18px;align-items:center;font-size:clamp(21px,2.2vw,28px);line-height:1.4}
+.opening-order li::before{content:counter(proceedings);display:grid;place-items:center;background:white;color:var(--brand-blue);width:38px;height:38px;flex:none;border-radius:50%;font-weight:700}
+.opening-quote{padding:0 0 0 22px;margin:15px 0 20px;border-left:4px solid var(--brand-cyan)}
+.opening-quote p{font-size:clamp(20px,2vw,25px);line-height:1.45;margin:0 0 12px}
+.opening-quote cite{display:block;font-size:14px;line-height:1.5;font-style:normal}
+.opening-quote a{color:white;text-decoration:underline}
+.has-quote h1{font-size:clamp(36px,4vw,54px);margin-bottom:18px}
+.has-quote .slide-points{gap:12px;margin-top:15px}
+.has-quote .slide-points li{font-size:clamp(18px,1.8vw,23px)}
+.opening-week{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:16px}
+.opening-week li{display:grid;grid-template-columns:155px minmax(0,1fr);gap:22px;border-top:1px solid #ffffff40;padding-top:14px;font-size:clamp(21px,2vw,27px);line-height:1.4}
+.opening-week strong{font-stretch:62.5%;font-size:1.13em;text-transform:uppercase}
+.introduction-columns{display:grid;grid-template-columns:1fr 1fr;gap:42px;margin-top:20px}
+.introduction-columns h2{font-size:clamp(22px,2vw,27px);line-height:1.35;font-weight:600;color:white}
+.introduction-columns .slide-points{gap:13px;margin-top:16px}
+.introduction-columns .slide-points li{font-size:clamp(19px,1.9vw,25px)}
+.mood-scale{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px;margin-top:28px}
+.mood-scale span{display:grid;place-items:center;min-height:46px;border-bottom:4px solid var(--brand-cyan);background:#ffffff12;color:white;font-size:24px;font-weight:700}
+.mood-labels{display:flex;justify-content:space-between;gap:10px;margin-top:9px;font-size:16px}
+.mood-note{font-size:16px;margin-top:15px;color:white}
+.landing-controls{background:white;border:1px solid #D1D5EB;border-top:4px solid var(--brand-cyan);border-radius:7px;padding:24px;color:#2B2A29}
+.landing-controls h3{font-size:19px;margin:0 0 12px;color:#2B2A29}
+.landing-controls .actions{flex-wrap:wrap;gap:8px}
+.landing-controls .btn{font-size:14px;min-height:40px;padding:9px 12px}
+.landing-status{font-size:13px;line-height:1.5;margin:12px 0 0;min-height:39px;color:#5B5B5B}
+.landing-transcript{margin-top:12px;font-size:13px;line-height:1.5;color:#2B2A29}
+.landing-transcript summary{cursor:pointer;font-weight:600}
+.landing-transcript p{margin:10px 0 0;color:#2B2A29;font-size:14px}
+.egg-clock{display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid #D1D5EB}
+.egg-clock span{display:block;font-size:11px;font-weight:600;letter-spacing:.8px;color:var(--brand-blue)}
+.egg-clock strong{display:block;font-size:56px;line-height:1.15;font-stretch:62.5%;font-variant-numeric:tabular-nums;color:var(--brand-blue)}
+.egg-clock p{font-size:13px;margin-top:9px;line-height:1.4;color:#5B5B5B}
+.opening-slide.has-eggs{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:30px;align-items:start}
+.has-eggs h1{font-size:clamp(36px,3.8vw,52px);margin-bottom:18px}
+.has-eggs .slide-points{gap:14px;margin-top:20px}
+.has-eggs .slide-points li{font-size:clamp(19px,1.8vw,25px);line-height:1.4}
+.has-eggs .landing-controls{margin-top:28px;padding:19px;min-width:0}
+.has-eggs .egg-clock{display:block}
+.has-eggs .egg-clock .actions{margin-top:10px}
+.egg-instructions-footer{border-top:2px solid var(--brand-cyan);margin-top:22px;padding-top:14px;display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px}
+.egg-instructions-footer strong{font-size:15px;letter-spacing:.7px}
+.egg-instructions-footer span{font-size:15px;line-height:1.4}
+.egg-instructions-footer .btn{font-size:13px;min-height:36px;padding:8px 12px;background:white;color:var(--brand-blue)}
+@media(max-width:1050px){.opening-slide.has-eggs{grid-template-columns:minmax(0,1fr) 292px;gap:22px}.has-eggs .slide-points li{font-size:21px}.has-eggs .landing-controls{padding:17px}.opening-week li{grid-template-columns:132px minmax(0,1fr);gap:18px}}
+@media(max-height:760px) and (min-width:801px){.opening-slide h1{font-size:42px;margin-bottom:13px}.opening-slide .slide-lead{font-size:25px}.opening-slide .slide-points{gap:12px;margin-top:17px}.opening-slide .slide-points li{font-size:23px}.opening-slide.has-quote .slide-points li,.opening-slide.has-eggs .slide-points li{font-size:20px}.opening-quote p{font-size:21px}.opening-order{gap:14px}.opening-order li{font-size:23px}.opening-week{gap:9px;margin-top:16px}.opening-week li{font-size:23px;padding-top:11px}.introduction-columns .slide-points li{font-size:21px}.mood-scale{margin-top:19px}.has-eggs .landing-controls{margin-top:0}.egg-clock strong{font-size:48px}}
+@media(max-width:800px){.opening-slide.has-eggs{display:flex;flex-direction:column;align-items:stretch;gap:12px}.opening-slide:not(.has-qr):not(.has-eggs) .slide-copy{margin:0}.opening-slide h1,.has-quote h1,.has-eggs h1{font-size:34px;overflow-wrap:break-word}.opening-order{gap:14px}.opening-order li{font-size:20px;gap:12px}.opening-order li::before{width:30px;height:30px}.opening-quote{padding-left:14px}.opening-quote p{font-size:20px}.opening-quote cite{font-size:12px}.has-quote .slide-points li{font-size:18px}.opening-week li{display:block;font-size:19px;padding-top:10px}.opening-week strong{display:block;font-size:21px;margin-bottom:4px}.introduction-columns{grid-template-columns:1fr;gap:24px}.introduction-columns h2{font-size:21px}.introduction-columns .slide-points li{font-size:18px}.mood-scale{gap:4px;margin-top:20px}.mood-scale span{font-size:17px;min-height:32px}.mood-labels,.mood-note{font-size:13px}.has-eggs .slide-points li{font-size:18px}.has-eggs .landing-controls{margin:5px 0 10px}.landing-controls{padding:18px}.landing-controls .btn{font-size:13px}.egg-instructions-footer span{font-size:13px}.egg-clock strong{font-size:46px}.opening-slide.has-qr .slide-copy{flex:none}}

@@ -12,15 +12,19 @@
         {
           "id": "d1s1",
           "number": 1,
-          "time": "09:00–10:30",
+          "time": "09:00–10:45",
           "title": "Opening ceremony",
-          "description": "Welcome, shared purpose, the week ahead and official photograph. Any handbook launch is subject to confirmation.",
-          "activities": []
+          "description": "Welcome and official remarks, the week ahead, official photograph, table introductions, an anonymous mood check and Ostrich Eggs. Any handbook launch is subject to confirmation.",
+          "activities": [
+            "ostrich-eggs-instructions",
+            "ostrich-eggs-party-a",
+            "ostrich-eggs-party-b"
+          ]
         },
         {
           "id": "d1s2",
           "number": 2,
-          "time": "11:00–12:30",
+          "time": "11:15–12:30",
           "title": "Our two sectors: common ground and shared goals",
           "description": "Mixed groups build the Commonality Market, write shared goals and adopt the Return Rule.",
           "activities": [
@@ -81,7 +85,7 @@
           "number": 3,
           "time": "14:00–15:15",
           "title": "Positional and needs-based bargaining",
-          "description": "Compare approaches issue by issue, assess five outcomes and distinguish compromise from meeting interests.",
+          "description": "Revisit the Ostrich Eggs outcomes, then compare positional and needs-based approaches and practise reframing.",
           "activities": [
             "bargaining-approaches"
           ]
@@ -237,6 +241,42 @@
     }
   ],
   "activities": [
+    {
+      "id": "ostrich-eggs-instructions",
+      "title": "Ostrich Eggs · General instructions",
+      "day": 1,
+      "session": 1,
+      "role": "shared",
+      "sector": "both",
+      "description": "Flight set-up, role confidentiality and outcome record. Keep the discussion for Tuesday’s debrief.",
+      "file": "downloads/activities/ostrich-eggs-instructions.pdf",
+      "wordFile": "downloads/activities/ostrich-eggs-instructions.docx",
+      "pages": 1
+    },
+    {
+      "id": "ostrich-eggs-party-a",
+      "title": "Ostrich Eggs · Party A",
+      "day": 1,
+      "session": 1,
+      "role": "partyA",
+      "sector": "both",
+      "description": "Your assigned role brief. Open only if you have been assigned Party A; keep its contents confidential during the exercise.",
+      "file": "downloads/activities/ostrich-eggs-party-a.pdf",
+      "wordFile": "downloads/activities/ostrich-eggs-party-a.docx",
+      "pages": 2
+    },
+    {
+      "id": "ostrich-eggs-party-b",
+      "title": "Ostrich Eggs · Party B",
+      "day": 1,
+      "session": 1,
+      "role": "partyB",
+      "sector": "both",
+      "description": "Your assigned role brief. Open only if you have been assigned Party B; keep its contents confidential during the exercise.",
+      "file": "downloads/activities/ostrich-eggs-party-b.pdf",
+      "wordFile": "downloads/activities/ostrich-eggs-party-b.docx",
+      "pages": 2
+    },
     {
       "id": "common-ground",
       "title": "Common ground and shared goals",
@@ -959,5 +999,6 @@
       ],
       "task": "Choose two moves to establish exactly what has been agreed and what must happen before it can be implemented."
     }
-  ]
+  ],
+  "openingUpdated": "2 October 2026"
 }
