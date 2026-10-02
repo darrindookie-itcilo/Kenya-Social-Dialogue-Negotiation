@@ -2,6 +2,8 @@
 
 Participant dashboard · Naivasha, Kenya · 12–16 October 2026.
 
+The interface follows the supplied ITCILO 2026 visual identity, with blue and cyan, Noto Sans SemiCondensed and ExtraCondensed typography, and the official logo on a white field at the right. The original workshop QR code is available on Welcome and the opening presentation’s dashboard screen (screen 9 in the default ten-screen sequence). Noto Sans is self-hosted under the SIL Open Font License 1.1; see `assets/fonts/OFL.txt`.
+
 Open `index.html` in a browser, keeping the complete folder together. The participant site has no build step or external JavaScript dependencies. It is published on GitHub Pages. Live races connect to the existing secure Journey Mapper service; practice and the bargaining notebook remain local to the device.
 
 The dashboard contains the five-day programme, ten opening screens (plus three optional confirmed-launch prompts), a participant activity desk, a standards library, Agreement Lab and a personal bargaining notebook with an illustrative cost calculator. Friday closes at 12:30. Times are East Africa Time (UTC+3).

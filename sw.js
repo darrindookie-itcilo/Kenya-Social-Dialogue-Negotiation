@@ -1,5 +1,5 @@
-const CACHE='naivasha-2026-v4';
-const SHELL=['./','index.html','styles.css?v=3','game.css?v=4','app.js?v=4','race.js?v=3','data.js?v=4','games/dialogue/index.html','games/dialogue/live.js?v=3','games/dilemma/index.html','games/dilemma/live.js?v=3','assets/itcilo-logo.png','assets/favicon.svg'];
+const CACHE='naivasha-2026-v5';
+const SHELL=['./','index.html','styles.css?v=3','game.css?v=4','app.js?v=5','race.js?v=3','data.js?v=4','games/dialogue/index.html','games/dialogue/live.js?v=3','games/dilemma/index.html','games/dilemma/live.js?v=3','brand.css?v=5','assets/itcilo-logo.svg','assets/dashboard-qr.png','assets/fonts/noto-sans-latin-variable.woff2','assets/favicon.svg?v=5'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('naivasha-2026-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{if(event.request.method!=='GET'||new URL(event.request.url).origin!==self.location.origin)return;event.respondWith((async()=>{const cache=await caches.open(CACHE);try{const response=await fetch(event.request);if(response.ok)await cache.put(event.request,response.clone());return response;}catch(error){const cached=await cache.match(event.request);if(cached)return cached;if(event.request.mode==='navigate'){const home=await cache.match('index.html');if(home)return home;}throw error;}})());});
