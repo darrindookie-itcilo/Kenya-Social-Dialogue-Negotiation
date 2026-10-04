@@ -12,8 +12,8 @@
         {
           "id": "d1s1",
           "number": 1,
-          "time": "09:00–10:45",
-          "title": "Opening ceremony",
+          "time": "09:00–10:30",
+          "title": "Opening Ceremony",
           "description": "Welcome and official remarks, the week ahead, official photograph, table introductions, an anonymous mood check and Ostrich Eggs. Any handbook launch is subject to confirmation.",
           "activities": [
             "ostrich-eggs-instructions",
@@ -24,8 +24,8 @@
         {
           "id": "d1s2",
           "number": 2,
-          "time": "11:15–12:30",
-          "title": "Our two sectors: common ground and shared goals",
+          "time": "11:00–12:30",
+          "title": "Our Two Sectors: Common Ground and Shared Goals",
           "description": "Mixed groups build the Commonality Market, write shared goals and adopt the Return Rule.",
           "activities": [
             "common-ground",
@@ -36,7 +36,7 @@
           "id": "d1s3",
           "number": 3,
           "time": "14:00–15:15",
-          "title": "Social dialogue in the public services",
+          "title": "Social Dialogue in the Public Services",
           "description": "Name the form of dialogue, clarify who sits at the table and agree how we will work.",
           "activities": [
             "social-dialogue"
@@ -46,11 +46,53 @@
           "id": "d1s4",
           "number": 4,
           "time": "15:45–17:00",
-          "title": "Understanding conflict and how it develops into a dispute",
+          "title": "Understanding Conflict and How It Develops into a Dispute",
           "description": "Map the Joe and Frank case; identify aggravators, moderators and earlier intervention.",
           "activities": [
             "joe-frank"
           ]
+        }
+      ],
+      "agenda": [
+        {
+          "time": "08:00–09:00",
+          "title": "Registration"
+        },
+        {
+          "time": "09:00–10:30",
+          "title": "Opening Ceremony",
+          "session": 1
+        },
+        {
+          "time": "10:30–11:00",
+          "title": "Coffee break"
+        },
+        {
+          "time": "11:00–12:30",
+          "title": "Our Two Sectors: Common Ground and Shared Goals",
+          "session": 2
+        },
+        {
+          "time": "12:30–14:00",
+          "title": "Lunch"
+        },
+        {
+          "time": "14:00–15:15",
+          "title": "Social Dialogue in the Public Services",
+          "session": 3
+        },
+        {
+          "time": "15:15–15:45",
+          "title": "Coffee break"
+        },
+        {
+          "time": "15:45–17:00",
+          "title": "Understanding Conflict and How It Develops into a Dispute",
+          "session": 4
+        },
+        {
+          "time": "18:00 (tbc)",
+          "title": "Aperitivo / reception"
         }
       ]
     },
@@ -64,7 +106,7 @@
           "id": "d2s1",
           "number": 1,
           "time": "09:00–10:30",
-          "title": "Approaches to managing and resolving conflict",
+          "title": "Approaches to Managing and Resolving Conflict",
           "description": "Compare power, rights, avoidance and consensus using six paired scenarios.",
           "activities": [
             "conflict-approaches"
@@ -74,7 +116,7 @@
           "id": "d2s2",
           "number": 2,
           "time": "11:00–12:30",
-          "title": "Kenya’s legal and institutional framework",
+          "title": "Understanding Negotiation in the Kenyan Legal and Institutional Framework",
           "description": "Connect rights, recognition, SRC advice, funding and registration to preparation and implementation.",
           "activities": [
             "kenya-framework"
@@ -84,7 +126,7 @@
           "id": "d2s3",
           "number": 3,
           "time": "14:00–15:15",
-          "title": "Positional and needs-based bargaining",
+          "title": "Positional and Needs-Based Bargaining",
           "description": "Revisit the Ostrich Eggs outcomes, then compare positional and needs-based approaches and practise reframing.",
           "activities": [
             "bargaining-approaches"
@@ -94,11 +136,45 @@
           "id": "d2s4",
           "number": 4,
           "time": "15:45–17:00",
-          "title": "Constructive communication at the table",
+          "title": "Constructive Communication at the Table",
           "description": "Practise listening, paraphrasing, open questions and reframing while respecting your mandate.",
           "activities": [
             "communication"
           ]
+        }
+      ],
+      "agenda": [
+        {
+          "time": "09:00–10:30",
+          "title": "Approaches to Managing and Resolving Conflict",
+          "session": 1
+        },
+        {
+          "time": "10:30–11:00",
+          "title": "Coffee break"
+        },
+        {
+          "time": "11:00–12:30",
+          "title": "Understanding Negotiation in the Kenyan Legal and Institutional Framework",
+          "session": 2
+        },
+        {
+          "time": "12:30–14:00",
+          "title": "Lunch"
+        },
+        {
+          "time": "14:00–15:15",
+          "title": "Positional and Needs-Based Bargaining",
+          "session": 3
+        },
+        {
+          "time": "15:15–15:45",
+          "title": "Coffee break"
+        },
+        {
+          "time": "15:45–17:00",
+          "title": "Constructive Communication at the Table",
+          "session": 4
         }
       ]
     },
@@ -112,7 +188,7 @@
           "id": "d3s1",
           "number": 1,
           "time": "09:00–10:30",
-          "title": "The negotiator’s dilemma and generating options",
+          "title": "The Negotiator's Dilemma and Generating Options",
           "description": "Balance creating and claiming value; generate options before evaluating them.",
           "activities": [
             "generating-options"
@@ -122,7 +198,7 @@
           "id": "d3s2",
           "number": 2,
           "time": "11:00–12:30",
-          "title": "Alternatives, preparation and mandating",
+          "title": "Alternatives, Preparation and Mandating",
           "description": "Build a BATNA and mandate. Job Grading teams form and receive their briefs before lunch.",
           "activities": [
             "batna-mandate",
@@ -135,7 +211,7 @@
           "id": "d3s3",
           "number": 3,
           "time": "14:00–15:15",
-          "title": "Experiencing the negotiation process",
+          "title": "Experiencing the Negotiation Process",
           "description": "Job Grading teams negotiate live at 14:00, record outcomes and debrief.",
           "activities": [
             "job-grading-record"
@@ -145,7 +221,7 @@
           "id": "d3s4",
           "number": 4,
           "time": "15:45–17:00",
-          "title": "Extracting Needs and reflecting on practice",
+          "title": "Working with Positions and Needs, and Reflecting on Practice",
           "description": "Run two paired Extracting Needs rounds, then set two improvement priorities.",
           "activities": [
             "extracting-needs",
@@ -153,6 +229,40 @@
             "extracting-needs-speaker-2",
             "personal-reflection"
           ]
+        }
+      ],
+      "agenda": [
+        {
+          "time": "09:00–10:30",
+          "title": "The Negotiator's Dilemma and Generating Options",
+          "session": 1
+        },
+        {
+          "time": "10:30–11:00",
+          "title": "Coffee break"
+        },
+        {
+          "time": "11:00–12:30",
+          "title": "Alternatives, Preparation and Mandating",
+          "session": 2
+        },
+        {
+          "time": "12:30–14:00",
+          "title": "Lunch"
+        },
+        {
+          "time": "14:00–15:15",
+          "title": "Experiencing the Negotiation Process",
+          "session": 3
+        },
+        {
+          "time": "15:15–15:45",
+          "title": "Coffee break"
+        },
+        {
+          "time": "15:45–17:00",
+          "title": "Working with Positions and Needs, and Reflecting on Practice",
+          "session": 4
         }
       ]
     },
@@ -166,7 +276,7 @@
           "id": "d4s1",
           "number": 1,
           "time": "09:00–10:30",
-          "title": "The economics of bargaining with government — Part 1",
+          "title": "Collective Bargaining in the Public Sector: The Economic Component (Part 1)",
           "description": "Test comparability, cost of living and ability to pay; agree the measure and denominator.",
           "activities": [
             "public-economics"
@@ -176,7 +286,7 @@
           "id": "d4s2",
           "number": 2,
           "time": "11:00–12:30",
-          "title": "Building an evidence-based claim and response — Part 2",
+          "title": "Collective Bargaining in the Public Sector: The Economic Component (Part 2) — Sector Application",
           "description": "Prepare a costed claim or funded response. Simulation roles and briefs are allocated before afternoon preparation.",
           "activities": [
             "evidence-claim"
@@ -186,7 +296,7 @@
           "id": "d4s3",
           "number": 3,
           "time": "14:00–15:15",
-          "title": "Preparing for the sector simulations",
+          "title": "Preparing the Sector Negotiation Simulation",
           "description": "Prepare three issues, authority limits, trade-offs and a difficult-moments plan.",
           "activities": [
             "bargaining-notebook"
@@ -196,7 +306,7 @@
           "id": "d4s4",
           "number": 4,
           "time": "15:45–17:00",
-          "title": "Sector negotiation simulations",
+          "title": "Split Plenary: Sector Negotiation Simulations (parallel sessions)",
           "description": "Parallel public health and higher education negotiations: five-minute huddle, 50-minute negotiation and written record.",
           "activities": [
             "simulation-instructions",
@@ -208,6 +318,40 @@
             "education-employer",
             "simulation-record"
           ]
+        }
+      ],
+      "agenda": [
+        {
+          "time": "09:00–10:30",
+          "title": "Collective Bargaining in the Public Sector: The Economic Component (Part 1)",
+          "session": 1
+        },
+        {
+          "time": "10:30–11:00",
+          "title": "Coffee break"
+        },
+        {
+          "time": "11:00–12:30",
+          "title": "Collective Bargaining in the Public Sector: The Economic Component (Part 2) — Sector Application",
+          "session": 2
+        },
+        {
+          "time": "12:30–14:00",
+          "title": "Lunch"
+        },
+        {
+          "time": "14:00–15:15",
+          "title": "Preparing the Sector Negotiation Simulation",
+          "session": 3
+        },
+        {
+          "time": "15:15–15:45",
+          "title": "Coffee break"
+        },
+        {
+          "time": "15:45–17:00",
+          "title": "Split Plenary: Sector Negotiation Simulations (parallel sessions)",
+          "session": 4
         }
       ]
     },
@@ -221,7 +365,7 @@
           "id": "d5s1",
           "number": 1,
           "time": "09:00–10:30",
-          "title": "Sharing across sectors and closing a negotiation",
+          "title": "Sharing Across Sectors and Closing a Negotiation",
           "description": "Report back across sectors, compare experience and practise a precise closing sequence.",
           "activities": [
             "closing-negotiation"
@@ -231,11 +375,31 @@
           "id": "d5s2",
           "number": 2,
           "time": "11:00–12:30",
-          "title": "Way forward, evaluation and closing ceremony",
+          "title": "Way Forward and Closing Ceremony",
           "description": "Write sector action points, complete evaluation and close by 12:30.",
           "activities": [
             "action-plan"
           ]
+        }
+      ],
+      "agenda": [
+        {
+          "time": "09:00–10:30",
+          "title": "Sharing Across Sectors and Closing a Negotiation",
+          "session": 1
+        },
+        {
+          "time": "10:30–11:00",
+          "title": "Coffee break"
+        },
+        {
+          "time": "11:00–12:30",
+          "title": "Way Forward and Closing Ceremony",
+          "session": 2
+        },
+        {
+          "time": "12:30",
+          "title": "Workshop closes"
         }
       ]
     }
@@ -1000,5 +1164,11 @@
       "task": "Choose two moves to establish exactly what has been agreed and what must happen before it can be implemented."
     }
   ],
-  "openingUpdated": "2 October 2026"
+  "openingUpdated": "2 October 2026",
+  "agendaUpdated": "4 October 2026",
+  "agendaSource": {
+    "file": "downloads/agenda.pdf",
+    "pages": 2,
+    "sha256": "da5d0d17f0a6186b7e4a4f5605049313d9fe28cd6677dc734b8792b0c0f05650"
+  }
 }
