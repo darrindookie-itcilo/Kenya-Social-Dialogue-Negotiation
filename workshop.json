@@ -14,7 +14,7 @@
           "number": 1,
           "time": "09:00–10:30",
           "title": "Opening Ceremony",
-          "description": "Welcome and official remarks, the week ahead, official photograph, table introductions, an anonymous mood check and Ostrich Eggs. Any handbook launch is subject to confirmation.",
+          "description": "Welcome and official remarks, the week ahead, table introductions, a mood card with your name and 1–10 score, and a five-minute Ostrich Eggs negotiation. Any handbook launch is subject to confirmation.",
           "activities": [
             "ostrich-eggs-instructions",
             "ostrich-eggs-party-a",
@@ -74,7 +74,8 @@
         },
         {
           "time": "12:30–14:00",
-          "title": "Lunch"
+          "title": "Lunch",
+          "note": "Official group photograph during the lunch break. The team will announce the exact time and meeting point."
         },
         {
           "time": "14:00–15:15",
@@ -189,7 +190,7 @@
           "number": 1,
           "time": "09:00–10:30",
           "title": "The Negotiator's Dilemma and Generating Options",
-          "description": "Balance creating and claiming value; generate options before evaluating them.",
+          "description": "Mood check: write your name and a 1–10 score on your card. Balance creating and claiming value; generate options before evaluating them.",
           "activities": [
             "generating-options"
           ]
@@ -366,7 +367,7 @@
           "number": 1,
           "time": "09:00–10:30",
           "title": "Sharing Across Sectors and Closing a Negotiation",
-          "description": "Report back across sectors, compare experience and practise a precise closing sequence.",
+          "description": "Mood check: write your name and a 1–10 score on your card. Report back across sectors, compare experience and practise a precise closing sequence.",
           "activities": [
             "closing-negotiation"
           ]
@@ -412,7 +413,7 @@
       "session": 1,
       "role": "shared",
       "sector": "both",
-      "description": "Flight set-up, role confidentiality and outcome record. Keep the discussion for Tuesday’s debrief.",
+      "description": "Five minutes to negotiate before landing. Keep your role confidential and hand your folded outcome card to the facilitator for Tuesday’s debrief.",
       "file": "downloads/activities/ostrich-eggs-instructions.pdf",
       "wordFile": "downloads/activities/ostrich-eggs-instructions.docx",
       "pages": 1
@@ -1164,7 +1165,7 @@
       "task": "Choose two moves to establish exactly what has been agreed and what must happen before it can be implemented."
     }
   ],
-  "openingUpdated": "2 October 2026",
+  "openingUpdated": "4 October 2026",
   "agendaUpdated": "4 October 2026",
   "agendaSource": {
     "file": "downloads/agenda.pdf",

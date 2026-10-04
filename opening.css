@@ -26,6 +26,7 @@
 .mood-scale span{display:grid;place-items:center;min-height:46px;border-bottom:4px solid var(--brand-cyan);background:#ffffff12;color:white;font-size:24px;font-weight:700}
 .mood-labels{display:flex;justify-content:space-between;gap:10px;margin-top:9px;font-size:16px}
 .mood-note{font-size:16px;margin-top:15px;color:white}
+.mood-desk h2{font-size:18px;margin:0 0 8px}.mood-desk p{margin:0}
 .landing-controls{background:white;border:1px solid #D1D5EB;border-top:4px solid var(--brand-cyan);border-radius:7px;padding:24px;color:#2B2A29}
 .landing-controls h3{font-size:19px;margin:0 0 12px;color:#2B2A29}
 .landing-controls .actions{flex-wrap:wrap;gap:8px}
