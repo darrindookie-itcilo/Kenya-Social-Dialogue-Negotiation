@@ -576,27 +576,33 @@
     },
     {
       "id": "job-grading-worker",
-      "title": "Job Grading: worker / union brief",
+      "title": "Job Grading: Union confidential brief",
       "day": 3,
       "session": 2,
       "source": "S044",
       "role": "worker",
       "sector": "both",
-      "description": "Only the assigned worker team opens this.",
+      "description": "Union team only. A separate one-page brief, available as PDF and Word. Read only your assigned side.",
       "file": "downloads/activities/job-grading-worker.pdf",
-      "pages": 1
+      "pages": 1,
+      "wordFile": "downloads/activities/job-grading-worker.docx",
+      "wordLabel": "Download Union Word",
+      "pdfLabel": "Download Union PDF"
     },
     {
       "id": "job-grading-employer",
-      "title": "Job Grading: employer / management brief",
+      "title": "Job Grading: Employer confidential brief",
       "day": 3,
       "session": 2,
       "source": "S044",
       "role": "employer",
       "sector": "both",
-      "description": "Only the assigned employer team opens this.",
+      "description": "Employer team only. A separate one-page brief, available as PDF and Word. Read only your assigned side.",
       "file": "downloads/activities/job-grading-employer.pdf",
-      "pages": 1
+      "pages": 1,
+      "wordFile": "downloads/activities/job-grading-employer.docx",
+      "wordLabel": "Download Employer Word",
+      "pdfLabel": "Download Employer PDF"
     },
     {
       "id": "job-grading-record",
