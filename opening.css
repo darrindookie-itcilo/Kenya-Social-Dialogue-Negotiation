@@ -1,8 +1,9 @@
 .opening-note{font-size:13px;margin:9px 0 18px}
 .opening-cover .actions{flex-wrap:wrap}
-.eggs-desk{margin-bottom:24px;border-top:4px solid var(--brand-cyan)}
-.eggs-desk h2{margin:8px 0 10px}
-.eggs-desk .actions{flex-wrap:wrap}
+.eggs-desk,.job-grading-desk{margin-bottom:24px;border-top:4px solid var(--brand-cyan)}
+.eggs-desk h2,.job-grading-desk h2{margin:8px 0 10px}
+.eggs-desk .actions,.job-grading-desk .actions{flex-wrap:wrap}
+.job-grading-desk .job-grading-timing{margin-top:14px;font-size:14px;color:var(--muted)}
 .opening-slide{justify-content:flex-start}
 .opening-slide:not(.has-qr):not(.has-eggs) .slide-copy{margin-block:auto}
 .opening-order{list-style:none;counter-reset:proceedings;padding:0;display:grid;gap:18px;margin:24px 0 0}
