@@ -38,4 +38,10 @@ The Ostrich Eggs screen includes a five-minute timer, pause/resume and reset. **
 
 ## Correct agenda
 
-The 4 October agenda update matches all 18 session titles and times to the supplied two-page participant PDF. Registration, coffee breaks, lunch, the tentative Monday reception at 18:00 and Friday’s 12:30 close appear in order on The week. Every agenda download uses `downloads/agenda.pdf`, preserved byte-for-byte from the supplied PDF. The source Word agenda is not a participant download. The offline cache is v8. Activity assignments and game data are preserved.
+The 5 October agenda update uses the supplied two-page **Kenya Social Dialogue Workshop Agenda FINAL.pdf**, preserving its colours and bytes. All 18 session titles and times match the programme. Registration, coffee breaks, lunch, the tentative Monday reception at 18:00 and Friday’s 12:30 close appear in order on The week. Every agenda download uses `downloads/agenda.pdf`. The source Word agenda is not a participant download. The offline cache is v9. Activity assignments and game data are preserved.
+
+## Triad Exercise sound and timer
+
+Open **Activity desk → Tuesday · Day 2 → Session 4**. **Start 90-second round** begins the speaker’s countdown and arms a short three-pulse alarm at 45 seconds. Say “Halfway” so listeners change their visible attention as instructed. The countdown continues through the second half. At 90 seconds, a different two-tone chime signals that the listener should paraphrase for 30 seconds, followed by the observer’s feedback. Rotate roles twice so everyone plays all three roles. The paraphrase and observer feedback are timed by the facilitator.
+
+**Play 45-second cue** plays the halfway alarm immediately and independently of the countdown, for use when timing the exercise yourself. **Pause timer / Resume timer** preserves the remaining time. **Reset round** returns to 1:30. **Start next round** starts again after a completed round. **Stop sound** interrupts the current sound without stopping a running timer. Use one device for room cues and check the speaker volume before starting. Leaving the Activity desk or changing its filters pauses the timer and stops sound. No sound plays on page load. The original Web Audio tones need no recording, browser voice or external audio file and work offline once the dashboard has been cached.

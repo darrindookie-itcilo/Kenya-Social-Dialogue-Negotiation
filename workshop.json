@@ -138,7 +138,7 @@
           "number": 4,
           "time": "15:45–17:00",
           "title": "Constructive Communication at the Table",
-          "description": "Practise listening, paraphrasing, open questions and reframing while respecting your mandate.",
+          "description": "Practise listening, paraphrasing and reframing while respecting your mandate. In the Triad Exercise, use a 90-second speaking round with a change of visible attention at 45 seconds.",
           "activities": [
             "communication"
           ]
@@ -1166,10 +1166,10 @@
     }
   ],
   "openingUpdated": "4 October 2026",
-  "agendaUpdated": "4 October 2026",
+  "agendaUpdated": "5 October 2026",
   "agendaSource": {
     "file": "downloads/agenda.pdf",
     "pages": 2,
-    "sha256": "da5d0d17f0a6186b7e4a4f5605049313d9fe28cd6677dc734b8792b0c0f05650"
+    "sha256": "7198814ee1016d9d69baa67cf475b92ca65d59ee3b4498bc24617851ffac3b16"
   }
 }

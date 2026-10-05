@@ -1,0 +1,24 @@
+.triad-desk{margin:0 0 24px;border-top:4px solid var(--brand-cyan)}
+.triad-desk>h2{margin:6px 0 10px}
+.triad-desk .triad-intro{max-width:760px;margin-bottom:22px}
+.triad-console{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(0,1.2fr);gap:28px;align-items:center;background:#EEF1F9;border:1px solid #D1D5EB;border-radius:8px;padding:24px}
+.triad-clock{min-width:0;text-align:center;color:var(--brand-blue)}
+.triad-clock>span{display:block;font-size:13px;font-weight:600}
+.triad-clock>strong{display:block;font-size:clamp(56px,6vw,80px);line-height:1.25;font-variant-numeric:tabular-nums;letter-spacing:0}
+.triad-clock progress{display:block;width:100%;height:10px;margin:10px 0 6px;border:0;border-radius:5px;overflow:hidden;background:#D1D5EB;accent-color:var(--brand-blue)}
+.triad-clock progress::-webkit-progress-bar{background:#D1D5EB}
+.triad-clock progress::-webkit-progress-value{background:var(--brand-blue)}
+.triad-clock progress::-moz-progress-bar{background:var(--brand-blue)}
+.triad-marks{display:flex;justify-content:space-between;gap:6px;font-size:11px;color:var(--ink)}
+.triad-controls{min-width:0}
+.triad-controls .triad-phase{margin:0 0 12px;font-weight:600;color:var(--brand-blue)}
+.triad-controls .actions{margin:0;gap:8px}
+.triad-controls .triad-sound-actions{margin-top:10px}
+.triad-controls .triad-sound-status{margin-top:10px;font-size:13px;line-height:1.5;color:var(--ink);min-height:39px}
+.triad-instructions{margin-top:18px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.triad-instructions summary{cursor:pointer;color:var(--brand-blue);font-weight:600}
+.triad-instructions ol{margin:12px 0 0;padding-left:23px}
+.triad-instructions li+li{margin-top:8px}
+.triad-desk .triad-tip{margin-top:14px;font-size:13px;color:var(--muted)}
+@media(max-width:760px){.triad-console{grid-template-columns:minmax(0,1fr);gap:20px;padding:18px}.triad-clock{max-width:360px;width:100%;margin:auto}.triad-controls .btn{max-width:100%}.triad-desk{padding:20px}.triad-desk .triad-intro{font-size:15px}.triad-controls .triad-sound-status{min-height:0}}
+@media(prefers-reduced-motion:no-preference){.triad-clock progress::-webkit-progress-value{transition:width .1s linear}}
