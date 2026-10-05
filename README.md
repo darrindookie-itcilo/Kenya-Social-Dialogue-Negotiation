@@ -38,7 +38,7 @@ The Ostrich Eggs screen includes a five-minute timer, pause/resume and reset. **
 
 ## Correct agenda
 
-The 5 October agenda update uses the supplied two-page **Kenya Social Dialogue Workshop Agenda FINAL.pdf**, preserving its colours and bytes. All 18 session titles and times match the programme. Registration, coffee breaks, lunch, the tentative Monday reception at 18:00 and Friday’s 12:30 close appear in order on The week. Every agenda download uses `downloads/agenda.pdf`. The source Word agenda is not a participant download. The offline cache is v11. Activity assignments and game data are preserved.
+The 5 October agenda update uses the supplied two-page **Kenya Social Dialogue Workshop Agenda FINAL.pdf**, preserving its colours and bytes. All 18 session titles and times match the programme. Registration, coffee breaks, lunch, the tentative Monday reception at 18:00 and Friday’s 12:30 close appear in order on The week. Every agenda download uses `downloads/agenda.pdf`. The source Word agenda is not a participant download. The offline cache is v12. Activity assignments and game data are preserved.
 
 ## Triad Exercise sound and timer
 
@@ -49,3 +49,10 @@ Open **Activity desk → Tuesday · Day 2 → Session 4**. **Start 90-second rou
 ## Job Grading confidential briefs
 
 Open **Activity desk → Wednesday · Day 3 → Session 2**. The **Job Grading confidential briefs** panel has two separate cards: **Employer confidential brief** and **Union confidential brief**, plus **Shared facts & preparation**. This session shows only the shared, employer and union role tabs. Each side confirms its assignment before downloading its own separate one-page PDF or Word handout. The chosen team’s resource appears first. Downloads are labelled **Download Employer PDF / Word** or **Download Union PDF / Word**. The separate supplied EE and TU Word briefs are used, with the session reference and approval wording aligned to the existing reviewed PDFs and automatic page counts. Changing sides clears the confirmation. The shared facts and BATNA/mandate worksheet stay available to both teams. Prepare before lunch and negotiate at 14:00 in Session 3, following the approved agenda. Role tabs separate exercise material on a public website; they are not password controls. The combined source Word file, which contains both sides, is excluded from participant downloads.
+
+
+## Extracting Needs confidential briefs
+
+Open **Activity desk → Wednesday · Day 3 → Session 4**. Two separate cards offer **I am the Round 1 speaker** (Public health scenario) and **I am the Round 2 speaker** (Higher education scenario). **Shared instructions & extractor** contains the common setup, questions and extraction notes, with no hidden speaker need. There are three relevant tabs; unrelated roles fall back to the shared instructions. The selected speaker brief appears first, with separately labelled PDF and Word downloads after role confirmation. Changing rounds clears confirmation. Each Word file contains only its own speaker scenario; the combined source document is excluded from participant downloads.
+
+Work in pairs. Role A speaks; Role B extracts needs through open questions only. Round 1 lasts up to eight minutes, then partners swap roles for Round 2, also up to eight minutes. Both sectors use both scenarios; the sector filter keeps both rounds available. Open a speaker brief only when it is your turn. The shared PDF refers to separate speaker files and preserves the extractor instructions and all four notes prompts. Public role tabs separate exercise content; they are not authentication.

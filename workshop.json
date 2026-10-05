@@ -624,33 +624,39 @@
       "source": "S052",
       "role": "shared",
       "sector": "both",
-      "description": "Shared instructions for both rounds; no speaker’s hidden need.",
+      "description": "Shared setup, extractor instructions and notes for both eight-minute rounds. No speaker’s hidden need.",
       "file": "downloads/activities/extracting-needs.pdf",
       "pages": 1
     },
     {
       "id": "extracting-needs-speaker-1",
-      "title": "Extracting Needs: Round 1 speaker",
+      "title": "Extracting Needs: Round 1 speaker confidential brief",
       "day": 3,
       "session": 4,
       "source": "S052",
       "role": "speaker1",
-      "sector": "health",
-      "description": "Open only when assigned speaker in Round 1.",
+      "sector": "both",
+      "description": "Public health scenario. Open only when it is your turn to be the Round 1 speaker. Separate PDF and Word handout.",
       "file": "downloads/activities/extracting-needs-speaker-1.pdf",
-      "pages": 1
+      "pages": 1,
+      "wordFile": "downloads/activities/extracting-needs-speaker-1.docx",
+      "wordLabel": "Download Round 1 Word",
+      "pdfLabel": "Download Round 1 PDF"
     },
     {
       "id": "extracting-needs-speaker-2",
-      "title": "Extracting Needs: Round 2 speaker",
+      "title": "Extracting Needs: Round 2 speaker confidential brief",
       "day": 3,
       "session": 4,
       "source": "S052",
       "role": "speaker2",
-      "sector": "education",
-      "description": "Open only when assigned speaker in Round 2.",
+      "sector": "both",
+      "description": "Higher education scenario. Open only when it is your turn to be the Round 2 speaker. Separate PDF and Word handout.",
       "file": "downloads/activities/extracting-needs-speaker-2.pdf",
-      "pages": 1
+      "pages": 1,
+      "wordFile": "downloads/activities/extracting-needs-speaker-2.docx",
+      "wordLabel": "Download Round 2 Word",
+      "pdfLabel": "Download Round 2 PDF"
     },
     {
       "id": "personal-reflection",
