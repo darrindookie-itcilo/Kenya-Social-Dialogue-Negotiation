@@ -38,7 +38,7 @@ The Ostrich Eggs screen includes a five-minute timer, pause/resume and reset. **
 
 ## Correct agenda
 
-The 5 October agenda update uses the supplied two-page **Kenya Social Dialogue Workshop Agenda FINAL.pdf**, preserving its colours and bytes. All 18 session titles and times match the programme. Registration, coffee breaks, lunch, the tentative Monday reception at 18:00 and Friday’s 12:30 close appear in order on The week. Every agenda download uses `downloads/agenda.pdf`. The source Word agenda is not a participant download. The offline cache is v12. Activity assignments and game data are preserved.
+The 5 October agenda update uses the supplied two-page **Kenya Social Dialogue Workshop Agenda FINAL.pdf**, preserving its colours and bytes. All 18 session titles and times match the programme. Registration, coffee breaks, lunch, the tentative Monday reception at 18:00 and Friday’s 12:30 close appear in order on The week. Every agenda download uses `downloads/agenda.pdf`. The source Word agenda is not a participant download. The offline cache is v13. Activity assignments and game data are preserved.
 
 ## Triad Exercise sound and timer
 
@@ -56,3 +56,9 @@ Open **Activity desk → Wednesday · Day 3 → Session 2**. The **Job Grading c
 Open **Activity desk → Wednesday · Day 3 → Session 4**. Two separate cards offer **I am the Round 1 speaker** (Public health scenario) and **I am the Round 2 speaker** (Higher education scenario). **Shared instructions & extractor** contains the common setup, questions and extraction notes, with no hidden speaker need. There are three relevant tabs; unrelated roles fall back to the shared instructions. The selected speaker brief appears first, with separately labelled PDF and Word downloads after role confirmation. Changing rounds clears confirmation. Each Word file contains only its own speaker scenario; the combined source document is excluded from participant downloads.
 
 Work in pairs. Role A speaks; Role B extracts needs through open questions only. Round 1 lasts up to eight minutes, then partners swap roles for Round 2, also up to eight minutes. Both sectors use both scenarios; the sector filter keeps both rounds available. Open a speaker brief only when it is your turn. The shared PDF refers to separate speaker files and preserves the extractor instructions and all four notes prompts. Public role tabs separate exercise content; they are not authentication.
+
+## Sector simulation confidential briefs
+
+Open **Activity desk → Thursday · Day 4 → Session 4**. Four separate cards and tabs identify **Public Health Employer**, **Public Health Union**, **Higher Education Employer** and **Higher Education Union**. Choose your assigned sector and team, then confirm the assignment before downloading its PDF or Word handout. Each file contains one side’s confidential information; other sides’ downloads are absent from that team’s view. Changing team or sector clears confirmation. A role without a specified sector returns to the shared desk.
+
+Both teams in each sector read the same sector facts, and both sectors use the common instructions and negotiation record. The 7 October update includes the supplied night-duty roster and relief-cover issue in Public Health, and the promotion criteria and career-break issue in Higher Education. The reviewed county revenue denominator and donor-funding qualifications remain in the participant versions. The combined source document is excluded from the public site. The five-minute huddle, 50-minute negotiation, three-minute openings and one short caucus per side follow the supplied instructions. These are fictional training scenarios. Public role tabs organize the exercise; they are not password protection.

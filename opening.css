@@ -1,5 +1,9 @@
 .opening-note{font-size:13px;margin:9px 0 18px}
 .opening-cover .actions{flex-wrap:wrap}
+.sector-simulation-desk{margin-bottom:24px;border-top:4px solid var(--brand-cyan)}
+.sector-simulation-desk h2{margin:8px 0 10px}.sector-simulation-desk>.actions{flex-wrap:wrap}
+.simulation-sector{margin-top:24px}.simulation-sector>h3{font-size:21px;display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.simulation-sector .job-grading-teams{margin-top:12px}.sector-simulation-desk .simulation-timing{margin:20px 0 0;font-size:14px;color:var(--muted)}
 .eggs-desk,.job-grading-desk{margin-bottom:24px;border-top:4px solid var(--brand-cyan)}
 .eggs-desk h2,.job-grading-desk h2{margin:8px 0 10px}
 .eggs-desk .actions,.job-grading-desk .actions{flex-wrap:wrap}

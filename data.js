@@ -726,33 +726,39 @@ window.WORKSHOP = {
       "source": "S069",
       "role": "shared",
       "sector": "health",
-      "description": "Both public health teams read these facts.",
+      "description": "Both Public Health teams read these facts, including the night-duty roster and relief-cover issue.",
       "file": "downloads/activities/health-shared.pdf",
       "pages": 1
     },
     {
       "id": "health-worker",
-      "title": "Public health simulation: worker brief",
+      "title": "Public Health simulation: Union confidential brief",
       "day": 4,
       "session": 4,
       "source": "S069",
       "role": "worker",
       "sector": "health",
-      "description": "Assigned public health worker team only.",
+      "description": "Plenary A. Assigned public health Union team only. Separate PDF and Word handout.",
       "file": "downloads/activities/health-worker.pdf",
-      "pages": 1
+      "pages": 1,
+      "wordFile": "downloads/activities/health-worker.docx",
+      "wordLabel": "Download Union Word",
+      "pdfLabel": "Download Union PDF"
     },
     {
       "id": "health-employer",
-      "title": "Public health simulation: employer brief",
+      "title": "Public Health simulation: Employer confidential brief",
       "day": 4,
       "session": 4,
       "source": "S069",
       "role": "employer",
       "sector": "health",
-      "description": "Assigned public health employer team only.",
+      "description": "Plenary A. Assigned public health Employer team only. Separate PDF and Word handout.",
       "file": "downloads/activities/health-employer.pdf",
-      "pages": 1
+      "pages": 1,
+      "wordFile": "downloads/activities/health-employer.docx",
+      "wordLabel": "Download Employer Word",
+      "pdfLabel": "Download Employer PDF"
     },
     {
       "id": "education-shared",
@@ -762,33 +768,39 @@ window.WORKSHOP = {
       "source": "S069",
       "role": "shared",
       "sector": "education",
-      "description": "Both higher education teams read these facts.",
+      "description": "Both Higher Education teams read these facts, including the promotion criteria and career-break issue.",
       "file": "downloads/activities/education-shared.pdf",
       "pages": 1
     },
     {
       "id": "education-worker",
-      "title": "Higher education simulation: worker brief",
+      "title": "Higher Education simulation: Union confidential brief",
       "day": 4,
       "session": 4,
       "source": "S069",
       "role": "worker",
       "sector": "education",
-      "description": "Assigned higher education worker team only.",
+      "description": "Plenary B. Assigned higher education Union team only. Separate PDF and Word handout.",
       "file": "downloads/activities/education-worker.pdf",
-      "pages": 1
+      "pages": 1,
+      "wordFile": "downloads/activities/education-worker.docx",
+      "wordLabel": "Download Union Word",
+      "pdfLabel": "Download Union PDF"
     },
     {
       "id": "education-employer",
-      "title": "Higher education simulation: employer brief",
+      "title": "Higher Education simulation: Employer confidential brief",
       "day": 4,
       "session": 4,
       "source": "S069",
       "role": "employer",
       "sector": "education",
-      "description": "Assigned higher education employer team only.",
+      "description": "Plenary B. Assigned higher education Employer team only. Separate PDF and Word handout.",
       "file": "downloads/activities/education-employer.pdf",
-      "pages": 1
+      "pages": 1,
+      "wordFile": "downloads/activities/education-employer.docx",
+      "wordLabel": "Download Employer Word",
+      "pdfLabel": "Download Employer PDF"
     },
     {
       "id": "simulation-record",
